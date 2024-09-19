@@ -1,3 +1,5 @@
+# cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -GNinja ../
+
 cmake_minimum_required (VERSION 3.16)
 project(SimpleGraphApp)
 
@@ -17,8 +19,16 @@ set(SIM_APP_SOURCES
     src/start.c
 )
 
+include_directories("include")
+
 # target_include_directories(simple_graph_app PUBLIC "include" "/usr/local/Cellar/sdl2/2.30.7/include")
 add_executable(simple_graph_app ${SIM_APP_SOURCES})
-target_include_directories(simple_graph_app PUBLIC "include" "${SDL2_INCLUDE_DIR}")
+target_include_directories(simple_graph_app PUBLIC "${SDL2_INCLUDE_DIR}")
 target_link_libraries(simple_graph_app SDL2::SDL2)
+
+
+add_custom_target(llvm_ir
+    COMMAND clang ${CMAKE_CURRENT_SOURCE_DIR}/src/app.c -emit-llvm -S -O2 -I${CMAKE_CURRENT_SOURCE_DIR}/include -o app.ll
+    SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/app.c
+)
 

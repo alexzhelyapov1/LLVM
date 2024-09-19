@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <assert.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <time.h>
 #include "sim.h"
 

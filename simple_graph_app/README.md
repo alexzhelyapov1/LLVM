@@ -16,6 +16,5 @@ brew install SDL2_ttf
 ```bash
 ninja simple_graph_app && ./simple_graph_app
 # or
-cd build && gcc ../src/app.c ../src/start.c ../src/sim.c -o simple_graph_app -lSDL2 -I../include
+cd build && clang ../src/app.c ../src/start.c ../src/sim.c -o simple_graph_app -lSDL2 -I../include
 ```
-TODO: Question: Different path for include via cmake and console compiling.
