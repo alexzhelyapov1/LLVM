@@ -11,6 +11,15 @@ void init_matrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 			{
 				matrix[x][y] = 0xFF00FF00;
 			}
+            else if (x > 150 && x < 160) {
+                matrix[x][y] = 0xFFFF0000;
+            }
+            else if (x > 300 && x < 310) {
+                matrix[x][y] = 0xFF0000FF;
+            }
+            else if (x > 450 && x < 460) {
+                matrix[x][y] = 0xFFFFFFFF;
+            }
 			else
 			{
 				matrix[x][y] = 0xFF000000;
@@ -21,11 +30,11 @@ void init_matrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 
 void update_matrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 {
-	for (int y = 0; y < SIM_Y_SIZE; ++y)
+	for (int y = 0; y < SIM_Y_SIZE - 1; ++y)
 	{
 		for (int x = SIM_X_SIZE - 1; x > 0; --x)
 		{
-			matrix[x][y] = matrix[x - 1][y];
+			matrix[x][y] = matrix[x - 1][y] / 2 + matrix[x][y + 1] / 2;
 		}
 	}
 }
