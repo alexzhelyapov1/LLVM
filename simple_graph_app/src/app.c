@@ -1,7 +1,6 @@
 #include "sim.h"
-#include <stdio.h>
 
-void init_matrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
+void initMatrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 {
 	for (int y = 0; y < SIM_Y_SIZE; ++y)
 	{
@@ -11,13 +10,13 @@ void init_matrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 			{
 				matrix[x][y] = 0xFF00FF00;
 			}
-            else if (x > 150 && x < 160 || y > 150 && y < 160) {
+            else if (x > SIM_X_SIZE / 4 * 1 && x < SIM_X_SIZE / 4 * 1 + 10 || y > SIM_X_SIZE / 4 * 1 && y < SIM_X_SIZE / 4 * 1 + 10) {
                 matrix[x][y] = 0xFFFF0000;
             }
-            else if (x > 300 && x < 310 || y > 300 && y < 310) {
+            else if (x > SIM_X_SIZE / 4 * 2 && x < SIM_X_SIZE / 4 * 2 + 10 || y > SIM_X_SIZE / 4 * 2 && y < SIM_X_SIZE / 4 * 2 + 10) {
                 matrix[x][y] = 0xFF0000FF;
             }
-            else if (x > 450 && x < 460 || y > 450 && y < 460) {
+            else if (x > SIM_X_SIZE / 4 * 3 && x < SIM_X_SIZE / 4 * 3 + 10 || y > SIM_X_SIZE / 4 * 3 && y < SIM_X_SIZE / 4 * 3 + 10) {
                 matrix[x][y] = 0xFFFFFFFF;
             }
 			else
@@ -28,18 +27,18 @@ void init_matrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 	}
 }
 
-void update_matrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
+void updateMatrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 {
 	for (int y = 0; y < SIM_Y_SIZE - 1; ++y)
 	{
 		for (int x = SIM_X_SIZE - 1; x > 0; --x)
 		{
-			matrix[x][y] = matrix[x - 1][y] / 2 + matrix[x][y + 1] / 2;
+			matrix[x][y] = matrix[x - 1][y] / 4 + matrix[x][y] / 4 + matrix[x][y + 1] / 4 + matrix[x - 1][y + 1] / 4;
 		}
 	}
 }
 
-void drow(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
+void drawMatrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 {
 	for (int y = 0; y < SIM_Y_SIZE; ++y)
 		for (int x = 0; x < SIM_X_SIZE; ++x)
@@ -53,12 +52,11 @@ void drow(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 void app()
 {
 	unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE];
-	init_matrix(matrix);
+	initMatrix(matrix);
 
 	for (int step = 0; step < 1000; ++step)
 	{
-		drow(matrix);
-		update_matrix(matrix);
-		printf("%d\n", step);
+		drawMatrix(matrix);
+		updateMatrix(matrix);
 	}
 }
