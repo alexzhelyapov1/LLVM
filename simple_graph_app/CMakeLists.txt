@@ -21,7 +21,6 @@ set(SIM_APP_SOURCES
 
 include_directories("include")
 
-# target_include_directories(simple_graph_app PUBLIC "include" "/usr/local/Cellar/sdl2/2.30.7/include")
 add_executable(simple_graph_app ${SIM_APP_SOURCES})
 target_include_directories(simple_graph_app PUBLIC "${SDL2_INCLUDE_DIR}")
 target_link_libraries(simple_graph_app SDL2::SDL2)
