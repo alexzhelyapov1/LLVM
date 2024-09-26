@@ -36,6 +36,9 @@ print_help() {
 }
 
 
+(( $# == 0 )) && print_help
+
+
 while (( $# > 0)); do
     if [[ "$1" == "--wsl-setup" ]]; then
         wsl_setup

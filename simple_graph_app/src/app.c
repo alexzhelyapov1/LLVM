@@ -10,13 +10,13 @@ void initMatrix(unsigned int matrix[SIM_X_SIZE][SIM_Y_SIZE])
 			{
 				matrix[x][y] = 0xFF00FF00;
 			}
-            else if (x > SIM_X_SIZE / 4 * 1 && x < SIM_X_SIZE / 4 * 1 + 10 || y > SIM_X_SIZE / 4 * 1 && y < SIM_X_SIZE / 4 * 1 + 10) {
+            else if (x > SIM_X_SIZE / 4 * 1 && x < SIM_X_SIZE / 4 * 1 + 10) {
                 matrix[x][y] = 0xFFFF0000;
             }
-            else if (x > SIM_X_SIZE / 4 * 2 && x < SIM_X_SIZE / 4 * 2 + 10 || y > SIM_X_SIZE / 4 * 2 && y < SIM_X_SIZE / 4 * 2 + 10) {
+            else if (x > SIM_X_SIZE / 4 * 2 && x < SIM_X_SIZE / 4 * 2 + 10) {
                 matrix[x][y] = 0xFF0000FF;
             }
-            else if (x > SIM_X_SIZE / 4 * 3 && x < SIM_X_SIZE / 4 * 3 + 10 || y > SIM_X_SIZE / 4 * 3 && y < SIM_X_SIZE / 4 * 3 + 10) {
+            else if (x > SIM_X_SIZE / 4 * 3 && x < SIM_X_SIZE / 4 * 3 + 10) {
                 matrix[x][y] = 0xFFFFFFFF;
             }
 			else
