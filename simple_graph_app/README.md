@@ -1,3 +1,25 @@
+## Compile and run:
+
+#### 1. Config cmake:
+```bash
+./setup.sh --cmake
+cd build
+```
+
+#### 2. Graph app:
+
+```bash
+ninja simple_graph_app && ./simple_graph_app
+```
+
+#### 3. Get LLVM IR:
+```bash
+ninja llvm_ir
+```
+
+[Dumped LLVM IR](./artefacts/app.ll)
+
+
 ## SETUP
 ### WSL (win 10) setup:
 
@@ -17,25 +39,3 @@
 ```bash
 ./setup.sh --mac-setup
 ```
-
-
-## Compile and run:
-
-#### 1. Config cmake:
-```bash
-./setup.sh --cmake
-cd build
-```
-
-#### 2. Graph app:
-
-```bash
-ninja simple_graph_app && ./simple_graph_app
-```
-
-#### 3. Get LLVM IR:
-```bash
-ninja ninja llvm_ir
-```
-
-[Dumped LLVM IR](./artefacts/app.ll)
