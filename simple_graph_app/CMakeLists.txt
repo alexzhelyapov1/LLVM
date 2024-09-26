@@ -28,6 +28,7 @@ target_link_libraries(simple_graph_app SDL2::SDL2)
 
 add_custom_target(llvm_ir
     COMMAND clang ${CMAKE_CURRENT_SOURCE_DIR}/src/app.c -emit-llvm -S -O2 -I${CMAKE_CURRENT_SOURCE_DIR}/include -o app.ll
+    COMMAND ${CMAKE_COMMAND} -E copy app.ll ${CMAKE_CURRENT_SOURCE_DIR}/artefacts
     SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/app.c
 )
 
