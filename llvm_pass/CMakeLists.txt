@@ -11,6 +11,10 @@ set(CMAKE_C_FLAGS    "${CMAKE_C_FLAGS} ${MY_COMPILE_FLAGS}")
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${MY_COMPILE_FLAGS}")
 
 
+add_custom_target(llvm_pass
+    COMMAND clang++ ${CMAKE_CURRENT_SOURCE_DIR}/src/Pass_start.cpp -fPIC -shared -I`llvm-config --includedir` -o libPass.so
+)
+
 # add_custom_target(llvm_ir
 #     COMMAND clang ${CMAKE_CURRENT_SOURCE_DIR}/src/app.c -emit-llvm -S -O2 -I${CMAKE_CURRENT_SOURCE_DIR}/include -o app.ll
 #     SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/app.c
