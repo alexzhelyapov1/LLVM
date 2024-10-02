@@ -16,18 +16,21 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${MY_COMPILE_FLAGS}")
 find_package(LLVM REQUIRED CONFIG)
 
 
-add_library(llvm_pass SHARED src/Pass4_uses.cpp)
-target_include_directories(llvm_pass PUBLIC "${LLVM_INCLUDE_DIRS}")
+# Working example
 
 
-add_custom_target(run_pass
-    COMMAND clang -fpass-plugin=${CMAKE_CURRENT_BINARY_DIR}/libllvm_pass.so ${CMAKE_CURRENT_SOURCE_DIR}/c_examples/hello.c
-    DEPENDS llvm_pass
-    SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/c_examples/hello.c
+add_library(pass_example_compile SHARED pass_example/PassExample.cpp)
+target_include_directories(pass_example_compile PUBLIC "${LLVM_INCLUDE_DIRS}")
+
+
+add_custom_target(pass_example_run
+    COMMAND clang -fpass-plugin=$<TARGET_FILE:pass_example_compile> ${CMAKE_CURRENT_SOURCE_DIR}/pass_example/hello.c
+    DEPENDS pass_example_compile
+    SOURCES pass_example/hello.c
 )
 
 
 # Why this does not work? It skips dependency!
-add_executable(run_pass_old c_examples/hello.c)
-add_dependencies(run_pass_old llvm_pass)
-target_compile_options(run_pass_old PUBLIC "-fpass-plugin=${CMAKE_CURRENT_BINARY_DIR}/libllvm_pass.so")
+add_executable(pass_example_run_old pass_example/hello.c)
+add_dependencies(pass_example_run_old pass_example_compile)
+target_compile_options(pass_example_run_old PUBLIC "-fpass-plugin=$<TARGET_FILE:pass_example_compile>")
