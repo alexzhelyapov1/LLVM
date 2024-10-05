@@ -10,44 +10,44 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
     for (auto &F : M) {
       outs() << "[Function] " << F.getName() << " (arg_size: " << F.arg_size()
              << ")\n";
-      F.print(outs());
-      outs() << "\n[Function Users]\n";
+      // F.print(outs());
+      // outs() << "\n[Function Users]\n";
       for (auto &U : F.uses()) {
         User *user = U.getUser();
-        user->print(outs(), true);
-        outs() << "\n";
+        // user->print(outs(), true);
+        // outs() << "\n";
       }
 
       for (auto &B : F) {
-        outs() << "\n#[Basic block]";
-        B.print(outs());
-        outs() << "#[BasicBlock Users]\n";
+        // outs() << "\n#[Basic block]";
+        // B.print(outs());
+        // outs() << "#[BasicBlock Users]\n";
         for (auto &U : B.uses()) {
           User *user = U.getUser();
-          user->print(outs(), true);
-          outs() << "\n";
+          // user->print(outs(), true);
+          // outs() << "\n";
         }
 
         for (auto &I : B) {
-          outs() << "\n##[Instruction]\n";
-          I.print(outs(), true);
-          outs() << "\n##[Users]\n";
+          // outs() << "\n##[Instruction]\n";
+          // I.print(outs(), true);
+          // outs() << "\n##[Users]\n";
           for (auto &U : I.uses()) {
             User *user = U.getUser();
-            user->print(outs(), true);
-            outs() << "\n";
+            // user->print(outs(), true);
+            // outs() << "\n";
           }
-          outs() << "##[Opernads]\n";
+          // outs() << "##[Opernads]\n";
           for (auto &U : I.operands()) {
             Value *use = U.get();
-            use->print(outs(), true);
-            outs() << "\n";
+            // use->print(outs(), true);
+            // outs() << "\n";
           }
         }
       }
-      outs() << "\n";
+      // outs() << "\n";
     }
-    outs() << "\n";
+    // outs() << "\n";
     return PreservedAnalyses::all();
   };
 };

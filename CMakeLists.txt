@@ -12,5 +12,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
 
+set(GRAPH_APP_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/simple_graph_app)
+set(LLVM_PASS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/llvm_pass)
+
+
 add_subdirectory(simple_graph_app)
 add_subdirectory(llvm_pass)

@@ -16,6 +16,19 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${MY_COMPILE_FLAGS}")
 find_package(LLVM REQUIRED CONFIG)
 
 
+add_library(stat_pass_compile SHARED src/StatPass.cpp)
+target_include_directories(stat_pass_compile PUBLIC "${LLVM_INCLUDE_DIRS}")
+
+
+add_custom_target(stat_pass_run
+    COMMAND clang -fpass-plugin=$<TARGET_FILE:stat_pass_compile> -I${GRAPH_APP_SOURCE_DIR}/include 
+        -S -emit-llvm -O2 ${GRAPH_APP_SOURCE_DIR}/src/app.c -o app.ll
+    COMMAND ${CMAKE_COMMAND} -E copy stat.csv ${CMAKE_CURRENT_SOURCE_DIR}/artefacts
+    DEPENDS stat_pass_compile
+    SOURCES ${GRAPH_APP_SOURCE_DIR}/src/app.c
+)
+
+
 # Working example
 
 
@@ -24,7 +37,7 @@ target_include_directories(pass_example_compile PUBLIC "${LLVM_INCLUDE_DIRS}")
 
 
 add_custom_target(pass_example_run
-    COMMAND clang -fpass-plugin=$<TARGET_FILE:pass_example_compile> ${CMAKE_CURRENT_SOURCE_DIR}/pass_example/hello.c
+    COMMAND clang -S -O2 -fpass-plugin=$<TARGET_FILE:pass_example_compile> ${CMAKE_CURRENT_SOURCE_DIR}/pass_example/hello.c
     DEPENDS pass_example_compile
     SOURCES pass_example/hello.c
 )
