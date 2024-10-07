@@ -1,39 +1,87 @@
+import sys
+import os
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
-df = pd.read_csv('../artefacts/stat.csv', encoding='utf-8')
-print(df)
-pair_counts = df.groupby(['Opcode', 'Users'], dropna=False).size().reset_index(name='Count')
-pair_counts['str'] = pair_counts['Opcode'] + '->' + pair_counts['Users'].astype(str)
-pair_counts['Percent(%)'] = pair_counts['Count'] / pair_counts['Count'].sum() * 100
-pair_counts['Percent_str'] = pair_counts['Percent(%)'].map(lambda p: f'{p:.2f}%')
-print(pair_counts)
-total_pairs = pair_counts['Count'].sum()
-print(f"Total: {total_pairs}")
+
+def split_uses(df):
+    new_rows = []
+    for opcode, users in zip(df['Opcode'], df['Users']):
+        for user in [np.nan] if pd.isna(users) else users.strip(":").split(":"):
+            new_rows.append({'Opcode': opcode, 'Users': user})
+
+    return pd.DataFrame(new_rows)
 
 
-plt.clf()
+def default_processing(df):
+    df = df.groupby(['Opcode', 'Users'], dropna=False).size().reset_index(name='Count')
+    df['str'] = df['Opcode'] + '->' + df['Users'].astype(str)
+    df['Percent(%)'] = df['Count'] / df['Count'].sum() * 100
+    
+    return df
 
-av = pair_counts['Percent(%)'].sort_values(ascending=False).iloc[3]
-# print(pair_counts['Percent(%)'].sort_values())
-normalized_percentages = pair_counts['Percent(%)'] / av
-# print(normalized_percentages)
 
-# Создаем цветовую карту от фиолетового к красному
-# cm.
-colors = [cm.coolwarm(x) for x in normalized_percentages]
+def no_nan_processing(df):
+    df = df.groupby(['Opcode', 'Users'], dropna=True).size().reset_index(name='Count')
+    df['str'] = df['Opcode'] + '->' + df['Users'].astype(str)
+    df['Percent(%)'] = df['Count'] / df['Count'].sum() * 100
+    
+    return df
 
-plt.figure(figsize=(10, 5))
-plt.bar(pair_counts['str'], pair_counts['Percent(%)'], color=colors)
-plt.xticks(rotation=30, ha="right", fontsize=8)  # Уменьшаем размер шрифта
-plt.subplots_adjust(bottom=0.3) 
-plt.xlabel("Instructions")
-plt.ylabel("Percent (%)")
-plt.title("Stat")
-plt.xticks(rotation=45, ha="right")
-# plt.tight_layout()
-plt.savefig("stat_all.png")
+
+def no_nan_no_phi_processing(df):
+    df = df[df['Users'] != 'phi']
+    df = df.groupby(['Opcode', 'Users'], dropna=True).size().reset_index(name='Count')
+    df['str'] = df['Opcode'] + '->' + df['Users'].astype(str)
+    df['Percent(%)'] = df['Count'] / df['Count'].sum() * 100
+    
+    return df
+
+
+def get_colors(df):
+    av = df['Percent(%)'].sort_values(ascending=False).iloc[3]
+    normalized_percentages = df['Percent(%)'] / av
+    
+    return [cm.coolwarm(x) for x in normalized_percentages]
+
+
+def draw_stat(df, name: str):
+    plt.clf()
+    colors = get_colors(df)
+    
+    plt.figure(figsize=(10, 5))
+    plt.bar(df['str'], df['Percent(%)'], color=colors)
+    plt.xticks(rotation=30, ha="right", fontsize=8)
+    plt.subplots_adjust(bottom=0.3) 
+    plt.xlabel("Instructions")
+    plt.ylabel("Percent (%)")
+    plt.title("Statistics")
+    plt.xticks(rotation=45, ha="right")
+    plt.savefig(name)
+    
+    print(f"Total for {name}: {df['Count'].sum()}")
+
+
+artefacts_dir = sys.argv[1]
+if not os.path.exists(artefacts_dir):
+    print(f"Bad path to artefacts_dir: {artefacts_dir}")
+    sys.exit(-1)
+
+df = pd.read_csv(os.path.join(artefacts_dir, "stat.csv"), encoding='utf-8')
+df = split_uses(df)
+
+draw_stat(default_processing(df), os.path.join(artefacts_dir, "statistics_all.png"))
+draw_stat(no_nan_processing(df), os.path.join(artefacts_dir, "statistics_no_nan.png"))
+draw_stat(no_nan_no_phi_processing(df), os.path.join(artefacts_dir, "statistics_no_nan_no_phi.png"))
+
+
+
+
+
+
+
 
 # Вывод статистики
 # print(df['Users'].isna())

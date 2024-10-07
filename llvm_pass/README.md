@@ -1,10 +1,3 @@
-## Notes:
-I left phi-instructions in users position.
-
-
-
-
-
 ## Compile and run:
 
 #### 1. Config cmake:
@@ -12,6 +5,25 @@ I left phi-instructions in users position.
 ./setup.sh --cmake
 cd build
 ```
+
+Collect statistics (result in [stat.csv](./artefacts/stat.csv)).
+```bash
+ninja stat_pass_run
+```
+
+Draw graph for statistics:
+```bash
+
+
+
+## Notes:
+I left phi-instructions in users position.
+
+
+
+
+
+
 
 #### 2. Graph app:
 

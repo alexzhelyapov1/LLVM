@@ -5,7 +5,10 @@ wsl_setup() {
     sudo apt update
     sudo apt upgrade -y
     sudo apt install llvm clang cmake ninja-build libsdl2-dev -y
-    sudo apt install x11-apps
+    sudo apt install x11-apps -y
+    sudo apt install python3-pip -y
+    pip install -r requirements.txt
+
 
     export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
 }
