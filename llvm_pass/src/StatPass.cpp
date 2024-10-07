@@ -24,7 +24,6 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
                   continue;
                 }
                 stat << opcode << ",";
-                // outs() << opcode << " -> ";
 
                 for (auto& U : I.uses()) {
                     User* user = U.getUser();
@@ -32,7 +31,6 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
                     unsigned opcode = inst->getOpcode();
                     std::string opcodeName = inst->getOpcodeName(opcode);
                     stat << opcodeName << ":";
-                    // outs() << opcodeName << ",";
                 }
 
                 stat << "\n";

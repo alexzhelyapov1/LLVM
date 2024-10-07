@@ -32,6 +32,7 @@ add_custom_target(stat_pass_run
 add_custom_target(draw_graphs
     COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/src/analyze.py "${CMAKE_CURRENT_SOURCE_DIR}/artefacts"
     SOURCES src/analyze.py artefacts/stat.csv
+    DEPENDS stat_pass_run
 )
 
 

@@ -1,22 +1,23 @@
-# Tasks:
+## Tasks:
 
-- First task: [simple_graph_app](./simple_graph_app/).
+- First task: [simple_graph_app](./simple_graph_app/README.md).
+- Second task: [llvm_pass](./llvm_pass/README.md).
 
 
 <br></br>
 
 
-# Questions:
+## Questions:
 
 - [cmake](llvm_pass/CMakeLists.txt): Why dependency `pass_example_compile` of `ninja pass_example_run_old` does not work?
-- [LLVM general]: Why does it print the module-pass twice (pass_example_run)?
-- [LLVM general]: Why did `llvm.lifetime.start.p0i8 (arg_size: 2)` appear with -O2 option?
+- LLVM general: Why does it print the module-pass twice (`ninja pass_example_run`)?
+- LLVM general: Why did `llvm.lifetime.start.p0i8 (arg_size: 2)` appear with -O2 option?
 
 
 <br></br>
 
 
-# Setup
+## Setup
 ### WSL (win 10) setup:
 
 #### Windows:

@@ -6,34 +6,21 @@
 cd build
 ```
 
-Collect statistics (result in [stat.csv](./artefacts/stat.csv)).
+#### 2. Collect statistics (result in [stat.csv](./artefacts/stat.csv)).
 ```bash
 ninja stat_pass_run
 ```
 
-Draw graph for statistics:
+#### 3. Draw graph for statistics:
 ```bash
+ninja draw_graphs
+```
 
+Result graphs:
+- [all pairs](./artefacts/statistics_all.png)
+- [excluded pairs like br->None](./artefacts/statistics_no_nan.png)
+- [excluded pairs like br->None and smth->phi](./artefacts/statistics_no_nan_no_phi.png)
 
 
 ## Notes:
-I left phi-instructions in users position.
-
-
-
-
-
-
-
-#### 2. Graph app:
-
-```bash
-ninja simple_graph_app && ./bin/simple_graph_app
-```
-
-#### 3. Get LLVM IR:
-```bash
-ninja llvm_ir
-```
-
-[Dumped LLVM IR](./artefacts/app.ll)
+I left phi-instructions in users position while collecting statistics via llvm pass.
