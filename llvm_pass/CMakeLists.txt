@@ -45,15 +45,12 @@ add_library(graph_without_app OBJECT ${MODIFIED_APP_SOURCES})
 target_include_directories(graph_without_app PUBLIC "${GRAPH_APP_SOURCE_DIR}/include")
 target_link_libraries(graph_without_app SDL2::SDL2)
 
-# add_library(app OBJECT ${GRAPH_APP_SOURCE_DIR}/src/app.c ${CMAKE_CURRENT_SOURCE_DIR}/src/log.c)
-# target_include_directories(app PUBLIC "${GRAPH_APP_SOURCE_DIR}/include")
-
-# truncate -s 5M runtime_stat.csv
 
 set(RUNTIME_PASS_PLUGIN $<TARGET_FILE:runtime_pass_compile>) 
-add_library(app OBJECT ${GRAPH_APP_SOURCE_DIR}/src/app.c)
-target_include_directories(app PUBLIC "${GRAPH_APP_SOURCE_DIR}/include")
-target_compile_options(app PRIVATE
+add_library(modified_app OBJECT ${GRAPH_APP_SOURCE_DIR}/src/app.c)
+target_include_directories(modified_app PUBLIC "${GRAPH_APP_SOURCE_DIR}/include")
+add_dependencies(modified_app runtime_pass_compile)
+target_compile_options(modified_app PRIVATE
     -fpass-plugin=${RUNTIME_PASS_PLUGIN}
     -O2
 )
@@ -66,8 +63,9 @@ add_custom_target(modified_app_ir
 )
 
 
-add_executable(modified_simple_graph_app $<TARGET_OBJECTS:graph_without_app> $<TARGET_OBJECTS:app>)
+add_executable(modified_simple_graph_app $<TARGET_OBJECTS:graph_without_app> $<TARGET_OBJECTS:modified_app>)
 target_link_libraries(modified_simple_graph_app SDL2::SDL2)
+add_dependencies(modified_simple_graph_app graph_without_app modified_app)
 
 
 # add_executable(ttt ${APP_SOURCES})

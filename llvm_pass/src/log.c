@@ -14,7 +14,7 @@ void log_instr(char *out_str) {
         is_opened = 1;
     }
 
-    if (fputs(out_str, file) == EOF) { // Записываем данные в файл
+    if (fputs(out_str, file) == EOF) {
         printf("ERROR! Can't write to log file!\n");
     }
 

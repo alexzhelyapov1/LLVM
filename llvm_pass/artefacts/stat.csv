@@ -4,7 +4,7 @@ icmp,select:
 shl,add:add:add:add:
 br,
 ret,
-add,icmp:phi:
+add,icmp:
 icmp,br:
 br,
 icmp,select:
@@ -40,7 +40,7 @@ store,
 br,
 store,
 br,
-add,icmp:phi:
+add,icmp:
 icmp,br:
 br,
 br,
@@ -48,10 +48,10 @@ shl,add:add:add:
 add,add:add:
 br,
 ret,
-add,icmp:phi:
+add,icmp:
 icmp,br:
 br,
-add,add:add:phi:
+add,add:add:
 add,getelementptr:
 getelementptr,load:
 load,lshr:
@@ -80,7 +80,7 @@ trunc,call:
 br,
 call,
 ret,
-add,icmp:phi:
+add,icmp:
 icmp,br:
 br,
 add,getelementptr:
@@ -88,7 +88,7 @@ getelementptr,load:
 load,call:
 trunc,call:
 call,
-add,icmp:phi:
+add,icmp:
 icmp,br:
 br,
 alloca,getelementptr:getelementptr:getelementptr:getelementptr:getelementptr:getelementptr:getelementptr:getelementptr:getelementptr:bitcast:
@@ -98,7 +98,7 @@ br,
 icmp,select:
 shl,add:add:add:add:
 br,
-add,phi:icmp:
+add,icmp:
 icmp,br:
 br,
 icmp,select:
@@ -132,7 +132,7 @@ store,
 br,
 store,
 br,
-add,phi:icmp:
+add,icmp:
 icmp,br:
 br,
 br,
@@ -141,7 +141,7 @@ ret,
 shl,add:
 trunc,call:
 br,
-add,phi:icmp:
+add,icmp:
 icmp,br:
 br,
 add,getelementptr:
@@ -149,7 +149,7 @@ getelementptr,load:
 load,call:
 trunc,call:
 call,
-add,phi:icmp:
+add,icmp:
 icmp,br:
 br,
 call,
@@ -157,10 +157,10 @@ br,
 shl,add:add:add:
 add,add:add:
 br,
-add,phi:icmp:
+add,icmp:
 icmp,br:
 br,
-add,phi:add:add:
+add,add:add:
 add,getelementptr:
 getelementptr,load:
 load,lshr:
@@ -183,6 +183,6 @@ add,store:
 store,
 icmp,br:
 br,
-add,icmp:phi:
+add,icmp:
 icmp,br:
 br,

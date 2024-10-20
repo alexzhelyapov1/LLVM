@@ -30,7 +30,9 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
                     Instruction* inst = cast<Instruction>(user);
                     unsigned opcode = inst->getOpcode();
                     std::string opcodeName = inst->getOpcodeName(opcode);
-                    stat << opcodeName << ":";
+                    if (opcodeName != "phi") {
+                      stat << opcodeName << ":";
+                    }
                 }
 
                 stat << "\n";

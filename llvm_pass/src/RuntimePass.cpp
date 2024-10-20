@@ -36,9 +36,9 @@ struct RuntimePass : public llvm::PassInfoMixin<RuntimePass> {
                 for (auto &user : I.uses()) {
                     auto &&inst = llvm::cast<llvm::Instruction>(user.getUser());
 
-                    // if (llvm::isa<llvm::PHINode>(*inst)) {
-                    //     continue;
-                    // }
+                    if (llvm::isa<llvm::PHINode>(*inst)) {
+                        continue;
+                    }
 
                     ss << inst->getOpcodeName() << ":";
                 }

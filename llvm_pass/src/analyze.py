@@ -31,15 +31,6 @@ def no_nan_processing(df):
     return df
 
 
-def no_nan_no_phi_processing(df):
-    df = df[df['Users'] != 'phi']
-    df = df.groupby(['Opcode', 'Users'], dropna=True).size().reset_index(name='Count')
-    df['str'] = df['Opcode'] + '->' + df['Users'].astype(str)
-    df['Percent(%)'] = df['Count'] / df['Count'].sum() * 100
-    
-    return df
-
-
 def get_colors(df):
     av = df['Percent(%)'].sort_values(ascending=False).iloc[3]
     normalized_percentages = df['Percent(%)'] / av
@@ -68,46 +59,14 @@ artefacts_dir = sys.argv[1]
 if not os.path.exists(artefacts_dir):
     print(f"Bad path to artefacts_dir: {artefacts_dir}")
     sys.exit(-1)
+    
 
-df_static = pd.read_csv(os.path.join(artefacts_dir, "stat.csv"), encoding='utf-8')
-df_static = split_uses(df_static)
+def stat_for_file(path: str, basename: str):
+    df = pd.read_csv(os.path.join(artefacts_dir, "stat.csv"), encoding='utf-8')
+    df = split_uses(df)
 
-draw_stat(default_processing(df_static), os.path.join(artefacts_dir, "statistics_all.png"))
-draw_stat(no_nan_processing(df_static), os.path.join(artefacts_dir, "statistics_no_nan.png"))
-draw_stat(no_nan_no_phi_processing(df_static), os.path.join(artefacts_dir, "statistics_no_nan_no_phi.png"))
+    draw_stat(default_processing(df), os.path.join(artefacts_dir, f"{basename}_all.png"))
+    draw_stat(no_nan_processing(df), os.path.join(artefacts_dir, f"{basename}_no_nan.png"))
 
-
-df_runtime = pd.read_csv(os.path.join(artefacts_dir, "runtime_stat.csv"), encoding='utf-8')
-df_runtime = split_uses(df_runtime)
-
-draw_stat(default_processing(df_runtime), os.path.join(artefacts_dir, "runtime_all.png"))
-draw_stat(no_nan_processing(df_runtime), os.path.join(artefacts_dir, "runtime_no_nan.png"))
-draw_stat(no_nan_no_phi_processing(df_runtime), os.path.join(artefacts_dir, "runtime_no_nan_no_phi.png"))
-
-
-
-
-
-
-
-
-# Вывод статистики
-# print(df['Users'].isna())
-# print(df[~df['Users'].isna()])
-
-
-
-
-
-# Доступ к отдельным столбцам:
-# print(df['Name'])
-
-# Доступ к отдельным строкам:
-# print(df.iloc[0]) # Первая строка
-
-# Итерация по строкам:
-# for index, row in df.iterrows():
-#     print(row['Name'], row['Address'])
-
-# if __name__ == "__main__":
-#     print("main")
+stat_for_file("stat.csv", "static")
+stat_for_file("runtime_stat.csv", "runtime")

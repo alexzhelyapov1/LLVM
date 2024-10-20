@@ -22,5 +22,7 @@ Result graphs:
 - [excluded pairs like br->None and smth->phi](./artefacts/statistics_no_nan_no_phi.png)
 
 
-## Notes:
-I left phi-instructions in users position while collecting statistics via llvm pass.
+### Note:
+```
+truncate -s 5M runtime_stat.csv
+```
