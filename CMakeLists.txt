@@ -18,6 +18,7 @@ set(LLVM_PASS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/llvm_pass)
 
 add_subdirectory(simple_graph_app)
 add_subdirectory(llvm_pass)
+add_subdirectory(app_llvm_constructor)
 
 
 add_custom_target(clang-force-format
