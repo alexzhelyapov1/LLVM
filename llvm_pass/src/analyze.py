@@ -80,9 +80,9 @@ draw_stat(no_nan_no_phi_processing(df_static), os.path.join(artefacts_dir, "stat
 df_runtime = pd.read_csv(os.path.join(artefacts_dir, "runtime_stat.csv"), encoding='utf-8')
 df_runtime = split_uses(df_runtime)
 
-draw_stat(default_processing(df_runtime), os.path.join(artefacts_dir, "statistics_all.png"))
-draw_stat(no_nan_processing(df_runtime), os.path.join(artefacts_dir, "statistics_no_nan.png"))
-draw_stat(no_nan_no_phi_processing(df_runtime), os.path.join(artefacts_dir, "statistics_no_nan_no_phi.png"))
+draw_stat(default_processing(df_runtime), os.path.join(artefacts_dir, "runtime_all.png"))
+draw_stat(no_nan_processing(df_runtime), os.path.join(artefacts_dir, "runtime_no_nan.png"))
+draw_stat(no_nan_no_phi_processing(df_runtime), os.path.join(artefacts_dir, "runtime_no_nan_no_phi.png"))
 
 
 
