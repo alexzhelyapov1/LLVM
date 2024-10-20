@@ -13,31 +13,30 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
     outs() << "[Module] " << M.getName() << "\n";
 
     for (auto &F : M) {
-        outs() << "[Function] " << F.getName() << " (arg_size: " << F.arg_size()
-                << ")\n";
+      outs() << "[Function] " << F.getName() << " (arg_size: " << F.arg_size() << ")\n";
 
-        for (auto &B : F) {
+      for (auto &B : F) {
 
-            for (auto &I : B) {
-                std::string opcode = I.getOpcodeName();
-                if (opcode == "phi") {
-                  continue;
-                }
-                stat << opcode << ",";
+        for (auto &I : B) {
+          std::string opcode = I.getOpcodeName();
+          if (opcode == "phi") {
+            continue;
+          }
+          stat << opcode << ",";
 
-                for (auto& U : I.uses()) {
-                    User* user = U.getUser();
-                    Instruction* inst = cast<Instruction>(user);
-                    unsigned opcode = inst->getOpcode();
-                    std::string opcodeName = inst->getOpcodeName(opcode);
-                    if (opcodeName != "phi") {
-                      stat << opcodeName << ":";
-                    }
-                }
-
-                stat << "\n";
+          for (auto &U : I.uses()) {
+            User *user = U.getUser();
+            Instruction *inst = cast<Instruction>(user);
+            unsigned opcode = inst->getOpcode();
+            std::string opcodeName = inst->getOpcodeName(opcode);
+            if (opcodeName != "phi") {
+              stat << opcodeName << ":";
             }
+          }
+
+          stat << "\n";
         }
+      }
     }
 
     stat.close();
@@ -60,6 +59,4 @@ PassPluginLibraryInfo getPassPluginInfo() {
 /* When a plugin is loaded by the driver, it will call this entry point to
 obtain information about this plugin and about how to register its passes.
 */
-extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
-  return getPassPluginInfo();
-}
+extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() { return getPassPluginInfo(); }

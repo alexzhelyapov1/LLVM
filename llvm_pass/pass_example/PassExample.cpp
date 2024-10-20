@@ -8,8 +8,7 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM) {
     outs() << "[Module] " << M.getName() << "\n";
     for (auto &F : M) {
-      outs() << "[Function] " << F.getName() << " (arg_size: " << F.arg_size()
-             << ")\n";
+      outs() << "[Function] " << F.getName() << " (arg_size: " << F.arg_size() << ")\n";
       // F.print(outs());
       // outs() << "\n[Function Users]\n";
       for (auto &U : F.uses()) {
@@ -70,6 +69,4 @@ PassPluginLibraryInfo getPassPluginInfo() {
 /* When a plugin is loaded by the driver, it will call this entry point to
 obtain information about this plugin and about how to register its passes.
 */
-extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
-  return getPassPluginInfo();
-}
+extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() { return getPassPluginInfo(); }

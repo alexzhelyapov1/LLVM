@@ -18,3 +18,9 @@ set(LLVM_PASS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/llvm_pass)
 
 add_subdirectory(simple_graph_app)
 add_subdirectory(llvm_pass)
+
+
+add_custom_target(clang-force-format
+    COMMAND find "${GRAPH_APP_SOURCE_DIR}" "${LLVM_PASS_SOURCE_DIR}"
+        -name "*.cpp" -exec clang-format -style='{ColumnLimit: 120}' -i {} +
+)
