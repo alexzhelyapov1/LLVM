@@ -9,7 +9,7 @@
 
 ## Questions:
 
-- [cmake](llvm_pass/CMakeLists.txt): Why dependency `pass_example_compile` of `ninja pass_example_run_old` does not work?
+- [cmake](llvm_pass/CMakeLists.txt): Why dependency `runtime_stat_pass` of `ninja app_with_runtime_stat_pass` does not work?
 - LLVM general: Why does it print the module-pass twice (`ninja pass_example_run`)?
 - LLVM general: Why did `llvm.lifetime.start.p0i8 (arg_size: 2)` appear with -O2 option?
 
