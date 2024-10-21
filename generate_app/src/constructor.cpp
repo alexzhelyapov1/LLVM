@@ -21,7 +21,7 @@ void GenerateUpdateMatrix(Module &M) {
     llvm::IRBuilder<> Builder(Ctx);
 
     llvm::FunctionType *FT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
-    llvm::Function *UpdateMatrixFunc = llvm::Function::Create(FT, llvm::Function::ExternalLinkage, "updateMatrix1", M);
+    llvm::Function *UpdateMatrixFunc = llvm::Function::Create(FT, llvm::Function::ExternalLinkage, "updateMatrix", M);
     UpdateMatrixFunc->setDSOLocal(true);
     UpdateMatrixFunc->setUnnamedAddr(llvm::GlobalValue::UnnamedAddr::Local);
 
@@ -79,30 +79,30 @@ void GenerateUpdateMatrix(Module &M) {
     llvm::Value *N32 = Builder.CreateICmpUGT(N11, Builder.getInt64(1), "icmp32");
     Builder.CreateCondBr(N32, BB10, BB7);
 
-    for (auto &F : M) {
-        for (auto &B : F) {
-            std::vector<llvm::Instruction*> ToErase;
-            for (auto &I : B) {
-                if (auto *Call = llvm::dyn_cast<llvm::CallInst>(&I)) {
-                    llvm::Function *CalledFunction = Call->getCalledFunction();
-                    if (CalledFunction && CalledFunction->getName() == "updateMatrix") {
-                        ToErase.push_back(Call);
+    // for (auto &F : M) {
+    //     for (auto &B : F) {
+    //         std::vector<llvm::Instruction*> ToErase;
+    //         for (auto &I : B) {
+    //             if (auto *Call = llvm::dyn_cast<llvm::CallInst>(&I)) {
+    //                 llvm::Function *CalledFunction = Call->getCalledFunction();
+    //                 if (CalledFunction && CalledFunction->getName() == "updateMatrix") {
+    //                     ToErase.push_back(Call);
 
-                        std::vector<llvm::Value *> Args;
-                        for (llvm::Use &Use : Call->args()) {
-                            Args.push_back(Use.get());
-                        }
+    //                     std::vector<llvm::Value *> Args;
+    //                     for (llvm::Use &Use : Call->args()) {
+    //                         Args.push_back(Use.get());
+    //                     }
 
-                        Builder.SetInsertPoint(Call);
-                        Builder.CreateCall(UpdateMatrixFunc, Args);
-                    }
-                }
-            }
-            for (auto *Inst : ToErase) {
-                Inst->eraseFromParent();
-            }
-        }
-    }
+    //                     Builder.SetInsertPoint(Call);
+    //                     Builder.CreateCall(UpdateMatrixFunc, Args);
+    //                 }
+    //             }
+    //         }
+    //         for (auto *Inst : ToErase) {
+    //             Inst->eraseFromParent();
+    //         }
+    //     }
+    // }
 }
 
 
@@ -111,7 +111,7 @@ void GenerateDrawMatrix(Module &M) {
     llvm::IRBuilder<> Builder(Ctx);
 
     llvm::FunctionType *FT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
-    llvm::Function *DrawMatrixFunc = llvm::Function::Create(FT, llvm::Function::ExternalLinkage, "drawMatrix1", M);
+    llvm::Function *DrawMatrixFunc = llvm::Function::Create(FT, llvm::Function::ExternalLinkage, "drawMatrix", M);
     DrawMatrixFunc->setDSOLocal(true);
     DrawMatrixFunc->setUnnamedAddr(llvm::GlobalValue::UnnamedAddr::Local);
 
@@ -164,30 +164,30 @@ void GenerateDrawMatrix(Module &M) {
     Builder.CreateCondBr(N17, BB7, BB10);
     N11->addIncoming(N16, BB10);
 
-    for (auto &F : M) {
-        for (auto &B : F) {
-            std::vector<llvm::Instruction*> ToErase;
-            for (auto &I : B) {
-                if (auto *Call = llvm::dyn_cast<llvm::CallInst>(&I)) {
-                    llvm::Function *CalledFunction = Call->getCalledFunction();
-                    if (CalledFunction && CalledFunction->getName() == "drawMatrix") {
-                        ToErase.push_back(Call);
+    // for (auto &F : M) {
+    //     for (auto &B : F) {
+    //         std::vector<llvm::Instruction*> ToErase;
+    //         for (auto &I : B) {
+    //             if (auto *Call = llvm::dyn_cast<llvm::CallInst>(&I)) {
+    //                 llvm::Function *CalledFunction = Call->getCalledFunction();
+    //                 if (CalledFunction && CalledFunction->getName() == "drawMatrix") {
+    //                     ToErase.push_back(Call);
 
-                        std::vector<llvm::Value *> Args;
-                        for (llvm::Use &Use : Call->args()) {
-                            Args.push_back(Use.get());
-                        }
+    //                     std::vector<llvm::Value *> Args;
+    //                     for (llvm::Use &Use : Call->args()) {
+    //                         Args.push_back(Use.get());
+    //                     }
 
-                        Builder.SetInsertPoint(Call);
-                        Builder.CreateCall(DrawMatrixFunc, Args);
-                    }
-                }
-            }
-            for (auto *Inst : ToErase) {
-                Inst->eraseFromParent();
-            }
-        }
-    }
+    //                     Builder.SetInsertPoint(Call);
+    //                     Builder.CreateCall(DrawMatrixFunc, Args);
+    //                 }
+    //             }
+    //         }
+    //         for (auto *Inst : ToErase) {
+    //             Inst->eraseFromParent();
+    //         }
+    //     }
+    // }
 }
 
 
@@ -196,7 +196,7 @@ void GenerateInitMatrix(llvm::Module &M) {
     llvm::IRBuilder<> Builder(Ctx);
 
     llvm::FunctionType *FT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
-    llvm::Function *InitMatrixFunc = llvm::Function::Create(FT, llvm::Function::ExternalLinkage, "initMatrix1", M);
+    llvm::Function *InitMatrixFunc = llvm::Function::Create(FT, llvm::Function::ExternalLinkage, "initMatrix", M);
     InitMatrixFunc->setDSOLocal(true);
     InitMatrixFunc->setUnnamedAddr(llvm::GlobalValue::UnnamedAddr::Local);
 
@@ -312,30 +312,30 @@ void GenerateInitMatrix(llvm::Module &M) {
     Builder.CreateCondBr(N41, BB7, BB10);
     N11->addIncoming(N40, BB39);
 
-    for (auto &F : M) {
-        for (auto &B : F) {
-            std::vector<llvm::Instruction*> ToErase;
-            for (auto &I : B) {
-                if (auto *Call = llvm::dyn_cast<llvm::CallInst>(&I)) {
-                    llvm::Function *CalledFunction = Call->getCalledFunction();
-                    if (CalledFunction && CalledFunction->getName() == "initMatrix") {
-                        ToErase.push_back(Call);
+    // for (auto &F : M) {
+    //     for (auto &B : F) {
+    //         std::vector<llvm::Instruction*> ToErase;
+    //         for (auto &I : B) {
+    //             if (auto *Call = llvm::dyn_cast<llvm::CallInst>(&I)) {
+    //                 llvm::Function *CalledFunction = Call->getCalledFunction();
+    //                 if (CalledFunction && CalledFunction->getName() == "initMatrix") {
+    //                     ToErase.push_back(Call);
 
-                        std::vector<llvm::Value *> Args;
-                        for (llvm::Use &Use : Call->args()) {
-                            Args.push_back(Use.get());
-                        }
+    //                     std::vector<llvm::Value *> Args;
+    //                     for (llvm::Use &Use : Call->args()) {
+    //                         Args.push_back(Use.get());
+    //                     }
 
-                        Builder.SetInsertPoint(Call);
-                        Builder.CreateCall(InitMatrixFunc, Args);
-                    }
-                }
-            }
-            for (auto *Inst : ToErase) {
-                Inst->eraseFromParent();
-            }
-        }
-    }
+    //                     Builder.SetInsertPoint(Call);
+    //                     Builder.CreateCall(InitMatrixFunc, Args);
+    //                 }
+    //             }
+    //         }
+    //         for (auto *Inst : ToErase) {
+    //             Inst->eraseFromParent();
+    //         }
+    //     }
+    // }
 }
 
 
@@ -345,7 +345,7 @@ void GenerateApp(llvm::Module &M) {
     llvm::IRBuilder<> Builder(Ctx);
 
     llvm::FunctionType *FT = llvm::FunctionType::get(Builder.getVoidTy(), {}, false);
-    llvm::Function *AppFunc = llvm::Function::Create(FT, llvm::Function::ExternalLinkage, "app1", M);
+    llvm::Function *AppFunc = llvm::Function::Create(FT, llvm::Function::ExternalLinkage, "app", M);
     AppFunc->setDSOLocal(true);
     AppFunc->setUnnamedAddr(llvm::GlobalValue::UnnamedAddr::Local);
 
@@ -361,7 +361,7 @@ void GenerateApp(llvm::Module &M) {
 
 
     llvm::FunctionType *InitMatrixFT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
-    llvm::FunctionCallee InitMatrixFunc = M.getOrInsertFunction("initMatrix1", InitMatrixFT);
+    llvm::FunctionCallee InitMatrixFunc = M.getOrInsertFunction("initMatrix", InitMatrixFT);
     Builder.CreateCall(InitMatrixFunc, {N3});
     Builder.CreateBr(BB5);
 
@@ -375,11 +375,11 @@ void GenerateApp(llvm::Module &M) {
     N6->addIncoming(Builder.getInt32(0), EntryBB);
 
     llvm::FunctionType *DrawMatrixFT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
-    llvm::FunctionCallee DrawMatrixFunc = M.getOrInsertFunction("drawMatrix1", DrawMatrixFT);
+    llvm::FunctionCallee DrawMatrixFunc = M.getOrInsertFunction("drawMatrix", DrawMatrixFT);
     Builder.CreateCall(DrawMatrixFunc, {N3});
 
     llvm::FunctionType *UpdateMatrixFT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
-    llvm::FunctionCallee UpdateMatrixFunc = M.getOrInsertFunction("updateMatrix1", UpdateMatrixFT);
+    llvm::FunctionCallee UpdateMatrixFunc = M.getOrInsertFunction("updateMatrix", UpdateMatrixFT);
     Builder.CreateCall(UpdateMatrixFunc, {N3});
 
 
@@ -389,30 +389,30 @@ void GenerateApp(llvm::Module &M) {
     N6->addIncoming(N7, BB5);
 
 
-    for (auto &F : M) {
-        for (auto &B : F) {
-            std::vector<llvm::Instruction*> ToErase;
-            for (auto &I : B) {
-                if (auto *Call = llvm::dyn_cast<llvm::CallInst>(&I)) {
-                    llvm::Function *CalledFunction = Call->getCalledFunction();
-                    if (CalledFunction && CalledFunction->getName() == "app") {
-                        ToErase.push_back(Call);
+    // for (auto &F : M) {
+    //     for (auto &B : F) {
+    //         std::vector<llvm::Instruction*> ToErase;
+    //         for (auto &I : B) {
+    //             if (auto *Call = llvm::dyn_cast<llvm::CallInst>(&I)) {
+    //                 llvm::Function *CalledFunction = Call->getCalledFunction();
+    //                 if (CalledFunction && CalledFunction->getName() == "app") {
+    //                     ToErase.push_back(Call);
 
-                        std::vector<llvm::Value *> Args;
-                        for (llvm::Use &Use : Call->args()) {
-                            Args.push_back(Use.get());
-                        }
+    //                     std::vector<llvm::Value *> Args;
+    //                     for (llvm::Use &Use : Call->args()) {
+    //                         Args.push_back(Use.get());
+    //                     }
 
-                        Builder.SetInsertPoint(Call);
-                        Builder.CreateCall(AppFunc, Args);
-                    }
-                }
-            }
-            for (auto *Inst : ToErase) {
-                Inst->eraseFromParent();
-            }
-        }
-    }
+    //                     Builder.SetInsertPoint(Call);
+    //                     Builder.CreateCall(AppFunc, Args);
+    //                 }
+    //             }
+    //         }
+    //         for (auto *Inst : ToErase) {
+    //             Inst->eraseFromParent();
+    //         }
+    //     }
+    // }
 }
 
 

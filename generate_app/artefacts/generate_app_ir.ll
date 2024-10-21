@@ -3,7 +3,7 @@ source_filename = "/home/alex/mipt/LLVM/generate_app/src/empty.c"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-define dso_local void @updateMatrix1(i32* %0) local_unnamed_addr {
+define dso_local void @updateMatrix(i32* %0) local_unnamed_addr {
   br label %2
 
 2:                                                ; preds = %7, %1
@@ -47,7 +47,7 @@ define dso_local void @updateMatrix1(i32* %0) local_unnamed_addr {
   br i1 %32, label %10, label %7
 }
 
-define dso_local void @drawMatrix1(i32* %0) local_unnamed_addr {
+define dso_local void @drawMatrix(i32* %0) local_unnamed_addr {
   br label %2
 
 2:                                                ; preds = %7, %1
@@ -81,7 +81,7 @@ declare void @simFlush()
 
 declare void @simPutPixel(i32, i32, i32)
 
-define dso_local void @initMatrix1(i32* %0) local_unnamed_addr {
+define dso_local void @initMatrix(i32* %0) local_unnamed_addr {
   br label %2
 
 2:                                                ; preds = %7, %1
@@ -156,11 +156,11 @@ define dso_local void @initMatrix1(i32* %0) local_unnamed_addr {
   br i1 %41, label %7, label %10
 }
 
-define dso_local void @app1() local_unnamed_addr {
+define dso_local void @app() local_unnamed_addr {
   %1 = alloca [131072 x i32], align 16
   %2 = bitcast [131072 x i32]* %1 to i8*
   %3 = getelementptr inbounds [131072 x i32], [131072 x i32]* %1, i64 0, i64 0
-  call void @initMatrix1(i32* %3)
+  call void @initMatrix(i32* %3)
   br label %5
 
 4:                                                ; preds = %5
@@ -168,8 +168,8 @@ define dso_local void @app1() local_unnamed_addr {
 
 5:                                                ; preds = %5, %0
   %6 = phi i32 [ 0, %0 ], [ %7, %5 ]
-  call void @drawMatrix1(i32* %3)
-  call void @updateMatrix1(i32* %3)
+  call void @drawMatrix(i32* %3)
+  call void @updateMatrix(i32* %3)
   %7 = add nuw nsw i32 %6, 1
   %8 = icmp eq i32 %7, 1000
   br i1 %8, label %4, label %5
