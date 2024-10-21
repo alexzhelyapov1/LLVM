@@ -16,10 +16,18 @@ add_dependencies(generate_app generate_app_pass)
 
 add_custom_target(generate_app_ir
     COMMAND clang -fpass-plugin=$<TARGET_FILE:generate_app_pass> -I${GRAPH_APP_SOURCE_DIR}/include
-        -S -emit-llvm -O2 ${GRAPH_APP_SOURCE_DIR}/src/app.c -o ${IR_OUTPUT_DIR}/generate_app_ir.ll
+        -S -emit-llvm -O0 ${CMAKE_CURRENT_SOURCE_DIR}/src/empty.c -o ${IR_OUTPUT_DIR}/generate_app_ir.ll
     COMMAND ${CMAKE_COMMAND} -E copy ${IR_OUTPUT_DIR}/generate_app_ir.ll ${CMAKE_CURRENT_SOURCE_DIR}/artefacts
 
     DEPENDS generate_app_pass
+)
+
+
+
+add_custom_target(empty_ir
+    COMMAND clang -I${GRAPH_APP_SOURCE_DIR}/include
+        -S -emit-llvm -O2 ${CMAKE_CURRENT_SOURCE_DIR}/src/empty.c -o ${IR_OUTPUT_DIR}/empty_ir.ll
+    COMMAND ${CMAKE_COMMAND} -E copy ${IR_OUTPUT_DIR}/empty_ir.ll ${CMAKE_CURRENT_SOURCE_DIR}/artefacts
 )
 
 
