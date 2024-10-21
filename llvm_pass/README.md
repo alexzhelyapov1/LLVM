@@ -6,9 +6,15 @@
 cd build
 ```
 
-#### 2. Collect statistics (result in [stat.csv](./artefacts/stat.csv)).
+#### 2. Collect statistics^
 ```bash
-ninja stat_pass_run
+ninja static_stat_pass
+ninja app_with_static_stat_pass
+
+
+ninja runtime_stat_pass
+ninja app_with_runtime_stat_pass
+
 ```
 
 #### 3. Draw graph for statistics:

@@ -12,6 +12,7 @@
 - [cmake](llvm_pass/CMakeLists.txt): Why dependency `runtime_stat_pass` of `ninja app_with_runtime_stat_pass` does not work?
 - LLVM general: Why does it print the module-pass twice (`ninja pass_example_run`)?
 - LLVM general: Why did `llvm.lifetime.start.p0i8 (arg_size: 2)` appear with -O2 option?
+- Why app-function has a huge size, but if compile only app-function, it'll be small? See `generate_app/empty.c`.
 
 
 <br></br>
