@@ -15,6 +15,9 @@ target_compile_options(app_with_static_stat_pass PRIVATE
 -fpass-plugin=$<TARGET_FILE:static_stat_pass>
 -O2
 )
+target_compile_definitions(app_with_static_stat_pass PRIVATE
+    RUNTIME_STAT_CSV_PATH="${CMAKE_CURRENT_SOURCE_DIR}/artefacts/static_stat.csv"
+)
 
 add_dependencies(app_with_static_stat_pass static_stat_pass)
 

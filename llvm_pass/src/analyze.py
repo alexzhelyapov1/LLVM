@@ -68,5 +68,5 @@ def stat_for_file(path: str, basename: str):
     draw_stat(default_processing(df), os.path.join(artefacts_dir, f"{basename}_all.png"))
     draw_stat(no_nan_processing(df), os.path.join(artefacts_dir, f"{basename}_no_nan.png"))
 
-stat_for_file("stat.csv", "static")
+stat_for_file("static_stat.csv", "static")
 stat_for_file("runtime_stat.csv", "runtime")

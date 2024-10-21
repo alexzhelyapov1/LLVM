@@ -8,7 +8,7 @@ using namespace llvm;
 struct MyModPass : public PassInfoMixin<MyModPass> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM) {
 
-    std::ofstream stat("stat.csv");
+    std::ofstream stat(RUNTIME_STAT_CSV_PATH);
     stat << "Opcode,Users\n";
     outs() << "[Module] " << M.getName() << "\n";
 
