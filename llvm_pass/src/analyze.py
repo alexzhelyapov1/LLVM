@@ -62,7 +62,7 @@ if not os.path.exists(artefacts_dir):
     
 
 def stat_for_file(path: str, basename: str):
-    df = pd.read_csv(os.path.join(artefacts_dir, "stat.csv"), encoding='utf-8')
+    df = pd.read_csv(os.path.join(artefacts_dir, path), encoding='utf-8')
     df = split_uses(df)
 
     draw_stat(default_processing(df), os.path.join(artefacts_dir, f"{basename}_all.png"))

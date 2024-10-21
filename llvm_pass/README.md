@@ -31,9 +31,13 @@ ninja draw_graphs
 ```
 
 Result graphs:
-- [all pairs](./artefacts/statistics_all.png)
-- [excluded pairs like br->None](./artefacts/statistics_no_nan.png)
-- [excluded pairs like br->None and smth->phi](./artefacts/statistics_no_nan_no_phi.png)
+- ['static': all pairs](./artefacts/statistics_all.png)
+- ['static': excluded pairs like br->None](./artefacts/statistics_no_nan.png)
+
+
+- ['runtime': all pairs](./artefacts/runtime_all.png)
+- ['runtime': excluded pairs like br->None](./artefacts/runtime_no_nan.png)
+
 
 
 #### 4. Other targets:

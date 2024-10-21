@@ -60,3 +60,8 @@ add_executable(graph_app_with_runtime_stat
 add_dependencies(graph_app_with_runtime_stat app_with_runtime_stat_pass graph_without_app log)
 target_link_libraries(graph_app_with_runtime_stat SDL2::SDL2)
 
+
+add_custom_target(draw_graphs
+    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/src/analyze.py "${CMAKE_CURRENT_SOURCE_DIR}/artefacts"
+    SOURCES src/analyze.py
+)

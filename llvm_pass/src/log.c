@@ -12,7 +12,12 @@ void log_instr(char *out_str) {
             printf("ERROR! Can't open log file!\n");
             return;
         }
+
         is_opened = 1;
+
+        if (fputs("Opcode,Users\n", file) == EOF) {
+            printf("ERROR! Can't write to log file!\n");
+        }
     }
 
     if (fputs(out_str, file) == EOF) {
