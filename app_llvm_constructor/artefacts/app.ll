@@ -230,13 +230,10 @@ define dso_local void @app() local_unnamed_addr #2 {
 60:                                               ; preds = %49
   call void (...) @simFlush() #4
   call void @updateMatrix1(i32* %11)
-  call void @updateMatrix(i32* noundef nonnull %11) #4
   %61 = add nuw nsw i32 %43, 1
   %62 = icmp eq i32 %61, 1000
   br i1 %62, label %44, label %42, !llvm.loop !14
 }
-
-declare void @updateMatrix(i32* noundef) local_unnamed_addr #3
 
 define dso_local void @updateMatrix1(i32* %0) local_unnamed_addr {
   br label %2

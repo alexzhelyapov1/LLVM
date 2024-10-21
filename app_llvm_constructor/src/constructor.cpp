@@ -120,15 +120,17 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
     //         }
     //     }
     // }
-
+    
     for (auto &F : M) {
-        // outs() << "[Function] " << F.getName() << " (arg_size: " << F.arg_size() << ")\n";
         for (auto &B : F) {
+            std::vector<llvm::Instruction*> ToErase;
             for (auto &I : B) {
                 if (auto *Call = llvm::dyn_cast<llvm::CallInst>(&I)) {
                     llvm::Function *CalledFunction = Call->getCalledFunction();
                     if (CalledFunction && CalledFunction->getName() == "updateMatrix") {
-                        outs() << CalledFunction->getName() << "\n";
+                        ToErase.push_back(Call);
+                        // Call->eraseFromParent();
+                        // outs() << CalledFunction->getName() << "\n";
                         std::vector<llvm::Value *> Args;
                         for (llvm::Use &Use : Call->args()) {
                             Args.push_back(Use.get());
@@ -137,7 +139,6 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
                         // llvm::CallInst *NewCall = Builder.CreateCall(UpdateMatrixFunc, Args);
                         Builder.SetInsertPoint(Call);
                         Builder.CreateCall(UpdateMatrixFunc, Args);
-                        // Call->eraseFromParent();
                         
                     }
                     // if (CalledFunction && CalledFunction->getName() == "updateMatrix") {
@@ -146,8 +147,14 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
                     // }
                 }
             }
+
+            for (auto *Inst : ToErase) {
+                Inst->eraseFromParent();
+            }
         }
     }
+
+    
 
     return PreservedAnalyses::all();
   };
