@@ -9,23 +9,16 @@
 #include <llvm-14/llvm/IR/Module.h>
 #include <llvm-14/llvm/IR/Value.h>
 #include <llvm-14/llvm/Support/raw_ostream.h>
-// #include <llvm/IR/IRBuilder.h>
 
 using namespace llvm;
 
 #define SIM_X_SIZE 512
 #define SIM_Y_SIZE 256
 
-struct MyModPass : public PassInfoMixin<MyModPass> {
-  PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM) {
 
-    outs() << "[Module] " << M.getName() << "\n";
-
-    llvm::LLVMContext &Ctx = M.getContext(); // Используем контекст модуля
+void GenerateUpdateMatrix(Module &M) {
+    llvm::LLVMContext &Ctx = M.getContext();
     llvm::IRBuilder<> Builder(Ctx);
-
-    // llvm::ArrayType *MatrixTy = llvm::ArrayType::get(Builder.getInt32Ty(), SIM_X_SIZE * SIM_Y_SIZE);
-    // llvm::PointerType *MatrixPtrTy = llvm::PointerType::getUnqual(MatrixTy);
 
     llvm::FunctionType *FT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
     llvm::Function *UpdateMatrixFunc = llvm::Function::Create(FT, llvm::Function::ExternalLinkage, "updateMatrix1", M);
@@ -40,8 +33,6 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
 
     Builder.SetInsertPoint(EntryBB);
     llvm::Value *N0 = UpdateMatrixFunc->getArg(0);
-    // N0->addAttr(llvm::Attribute::NoCapture);
-    // N0->addAttr(llvm::Attribute::NoUndef);
     Builder.CreateBr(BB2);
 
     Builder.SetInsertPoint(BB2);
@@ -88,39 +79,6 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
     llvm::Value *N32 = Builder.CreateICmpUGT(N11, Builder.getInt64(1), "icmp32");
     Builder.CreateCondBr(N32, BB10, BB7);
 
-    // llvm::PHINode *Y = Builder.CreatePHI(Builder.getInt32Ty(), 2, "y");
-    // Y->addIncoming(Builder.getInt32(0), EntryBB);
-    // llvm::Value *OuterLoopCond = Builder.CreateICmpSLT(Y, Builder.getInt32(SIM_Y_SIZE - 1), "outer_loop_cond");
-    // Builder.CreateCondBr(OuterLoopCond, OuterLoopBodyBB, OuterLoopEndBB);
-
-
-    
-
-    // llvm::Type *return_type = llvm::Type::getVoidTy(Ctx);
-    // llvm::ArrayRef<llvm::Type *> param_types = {llvm::Type::getInt8PtrTy(Ctx)}; //  Используем Type::getInt8PtrTy
-    // llvm::FunctionType *function_type = llvm::FunctionType::get(return_type, param_types, false);
-    // llvm::FunctionCallee log_func_signature = M.getOrInsertFunction("log_instr", function_type); // Используем модуль M
-
-    // llvm::Function *ExistingUpdateMatrix = M.getFunction("updateMatrix");
-    // if (ExistingUpdateMatrix) {
-    //     outs() << "USERS\n\n";
-    //     for (llvm::User *U : ExistingUpdateMatrix->users()) {
-    //         if (auto *Call = llvm::dyn_cast<llvm::CallInst>(U)) {
-    //             outs() << "ODUNONODU\n\n";
-    //             std::vector<llvm::Value *> Args;
-    //             for (llvm::Use &Use : Call->args()) {
-    //                 Args.push_back(Use.get());
-    //             }
-
-    //             // llvm::CallInst *NewCall = Builder.CreateCall(UpdateMatrixFunc, Args);
-    //             Builder.SetInsertPoint(Call);
-    //             Builder.CreateCall(UpdateMatrixFunc, Args);
-    //             // llvm::Instruction *NewCallInst = llvm::dyn_cast<llvm::Instruction>(NewCall); // Приведение типов для безопасности
-    //             // ReplaceInstWithInst(Call, NewCall);
-    //         }
-    //     }
-    // }
-    
     for (auto &F : M) {
         for (auto &B : F) {
             std::vector<llvm::Instruction*> ToErase;
@@ -129,32 +87,32 @@ struct MyModPass : public PassInfoMixin<MyModPass> {
                     llvm::Function *CalledFunction = Call->getCalledFunction();
                     if (CalledFunction && CalledFunction->getName() == "updateMatrix") {
                         ToErase.push_back(Call);
-                        // Call->eraseFromParent();
-                        // outs() << CalledFunction->getName() << "\n";
+
                         std::vector<llvm::Value *> Args;
                         for (llvm::Use &Use : Call->args()) {
                             Args.push_back(Use.get());
                         }
 
-                        // llvm::CallInst *NewCall = Builder.CreateCall(UpdateMatrixFunc, Args);
                         Builder.SetInsertPoint(Call);
                         Builder.CreateCall(UpdateMatrixFunc, Args);
-                        
                     }
-                    // if (CalledFunction && CalledFunction->getName() == "updateMatrix") {
-                    //     outs() << "Found call to updateMatrix!\n";
-                    //     // ... (ваш код для обработки вызова updateMatrix)
-                    // }
                 }
             }
-
             for (auto *Inst : ToErase) {
                 Inst->eraseFromParent();
             }
         }
     }
+}
 
-    
+
+struct MyModPass : public PassInfoMixin<MyModPass> {
+  PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM) {
+
+    outs() << "[Module] " << M.getName() << "\n";
+
+    GenerateUpdateMatrix(M);
+
 
     return PreservedAnalyses::all();
   };
