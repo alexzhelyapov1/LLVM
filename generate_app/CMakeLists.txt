@@ -1,5 +1,5 @@
 add_library(generate_app_pass SHARED src/constructor.cpp)
-target_include_directories(generate_app_pass PUBLIC "${LLVM_INCLUDE_DIRS}")
+target_include_directories(generate_app_pass PUBLIC "${LLVM_INCLUDE_DIRS}" "include")
 
 
 add_library(generate_app OBJECT src/empty.c)
