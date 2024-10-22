@@ -1,4 +1,4 @@
-add_library(generate_app_pass SHARED src/constructor.cpp)
+add_library(generate_app_pass SHARED src/constructor_pass.cpp)
 target_include_directories(generate_app_pass PUBLIC "${LLVM_INCLUDE_DIRS}" "include")
 
 
@@ -35,4 +35,13 @@ add_custom_target(empty_ir
 add_executable(graph_with_generated_app $<TARGET_OBJECTS:graph_without_app> $<TARGET_OBJECTS:generate_app>)
 target_link_libraries(graph_with_generated_app SDL2::SDL2)
 add_dependencies(graph_with_generated_app graph_without_app generate_app)
+
+
+add_executable(graph_with_ee src/constructor_ee.cpp ${GRAPH_APP_SOURCE_DIR}/src/sim.c)
+target_include_directories(graph_with_ee PRIVATE
+    "${GRAPH_APP_SOURCE_DIR}/include"
+    "${LLVM_INCLUDE_DIRS}"
+    "include"
+)
+target_link_libraries(graph_with_ee SDL2::SDL2 LLVM)
 

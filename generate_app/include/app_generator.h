@@ -6,8 +6,8 @@
 #define SIM_Y_SIZE 256
 
 
-static void GenerateUpdateMatrix(Module &M) {
-    llvm::LLVMContext &Ctx = M.getContext();
+static void GenerateUpdateMatrix(llvm::Module *M) {
+    llvm::LLVMContext &Ctx = M->getContext();
     llvm::IRBuilder<> Builder(Ctx);
 
     llvm::FunctionType *FT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
@@ -71,8 +71,8 @@ static void GenerateUpdateMatrix(Module &M) {
 }
 
 
-static void GenerateDrawMatrix(Module &M) {
-    llvm::LLVMContext &Ctx = M.getContext();
+static void GenerateDrawMatrix(llvm::Module *M) {
+    llvm::LLVMContext &Ctx = M->getContext();
     llvm::IRBuilder<> Builder(Ctx);
 
     llvm::FunctionType *FT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
@@ -102,7 +102,7 @@ static void GenerateDrawMatrix(Module &M) {
 
     Builder.SetInsertPoint(BB6);
     llvm::FunctionType *SimFlushTy = llvm::FunctionType::get(Builder.getVoidTy(), {}, false);
-    llvm::FunctionCallee SimFlushCallee = M.getOrInsertFunction("simFlush", SimFlushTy);
+    llvm::FunctionCallee SimFlushCallee = M->getOrInsertFunction("simFlush", SimFlushTy);
     Builder.CreateCall(SimFlushCallee);
     Builder.CreateRetVoid();
 
@@ -122,7 +122,7 @@ static void GenerateDrawMatrix(Module &M) {
     llvm::LoadInst *N14 = Builder.CreateAlignedLoad(Builder.getInt32Ty(), N13, llvm::MaybeAlign(4), "load");
     llvm::Value *N15 = Builder.CreateTrunc(N11, Builder.getInt32Ty(), "trunc15");
     llvm::FunctionType *SimPutPixelTy = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty(), Builder.getInt32Ty(), Builder.getInt32Ty()}, false);
-    llvm::FunctionCallee SimPutPixelCallee = M.getOrInsertFunction("simPutPixel", SimPutPixelTy);
+    llvm::FunctionCallee SimPutPixelCallee = M->getOrInsertFunction("simPutPixel", SimPutPixelTy);
     Builder.CreateCall(SimPutPixelCallee, {N15, N5, N14});
     llvm::Value *N16 = Builder.CreateAdd(N11, Builder.getInt64(1), "add16", true, true);
     llvm::Value *N17 = Builder.CreateICmpEQ(N16, Builder.getInt64(512), "icmp");
@@ -131,8 +131,8 @@ static void GenerateDrawMatrix(Module &M) {
 }
 
 
-static void GenerateInitMatrix(llvm::Module &M) {
-    llvm::LLVMContext &Ctx = M.getContext();
+static void GenerateInitMatrix(llvm::Module *M) {
+    llvm::LLVMContext &Ctx = M->getContext();
     llvm::IRBuilder<> Builder(Ctx);
 
     llvm::FunctionType *FT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
@@ -254,8 +254,8 @@ static void GenerateInitMatrix(llvm::Module &M) {
 }
 
 
-static void GenerateApp(llvm::Module &M) {
-    llvm::LLVMContext &Ctx = M.getContext();
+static void GenerateApp(llvm::Module *M) {
+    llvm::LLVMContext &Ctx = M->getContext();
     llvm::IRBuilder<> Builder(Ctx);
 
     llvm::FunctionType *FT = llvm::FunctionType::get(Builder.getVoidTy(), {}, false);
@@ -275,7 +275,7 @@ static void GenerateApp(llvm::Module &M) {
 
 
     llvm::FunctionType *InitMatrixFT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
-    llvm::FunctionCallee InitMatrixFunc = M.getOrInsertFunction("initMatrix", InitMatrixFT);
+    llvm::FunctionCallee InitMatrixFunc = M->getOrInsertFunction("initMatrix", InitMatrixFT);
     Builder.CreateCall(InitMatrixFunc, {N3});
     Builder.CreateBr(BB5);
 
@@ -289,11 +289,11 @@ static void GenerateApp(llvm::Module &M) {
     N6->addIncoming(Builder.getInt32(0), EntryBB);
 
     llvm::FunctionType *DrawMatrixFT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
-    llvm::FunctionCallee DrawMatrixFunc = M.getOrInsertFunction("drawMatrix", DrawMatrixFT);
+    llvm::FunctionCallee DrawMatrixFunc = M->getOrInsertFunction("drawMatrix", DrawMatrixFT);
     Builder.CreateCall(DrawMatrixFunc, {N3});
 
     llvm::FunctionType *UpdateMatrixFT = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
-    llvm::FunctionCallee UpdateMatrixFunc = M.getOrInsertFunction("updateMatrix", UpdateMatrixFT);
+    llvm::FunctionCallee UpdateMatrixFunc = M->getOrInsertFunction("updateMatrix", UpdateMatrixFT);
     Builder.CreateCall(UpdateMatrixFunc, {N3});
 
 

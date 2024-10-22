@@ -8,20 +8,20 @@
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Value.h"
+#include "app_generator.h"
 
 using namespace llvm;
 
-#include "app_generator.h"
 
 struct MyModPass : public PassInfoMixin<MyModPass> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM) {
 
     outs() << "[Module] " << M.getName() << "\n";
 
-    GenerateUpdateMatrix(M);
-    GenerateDrawMatrix(M);
-    GenerateInitMatrix(M);
-    GenerateApp(M);
+    GenerateUpdateMatrix(&M);
+    GenerateDrawMatrix(&M);
+    GenerateInitMatrix(&M);
+    GenerateApp(&M);
 
 
     return PreservedAnalyses::all();
