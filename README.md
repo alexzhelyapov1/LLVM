@@ -11,8 +11,6 @@
 
 - [cmake](llvm_pass/CMakeLists.txt): Why dependency `runtime_stat_pass` of `ninja app_with_runtime_stat_pass` does not work?
 - [cmake](./generate_app/CMakeLists.txt): Target `graph_with_ee` linker fails with `undefined reference to simInit(), simExit(), simFlush()...`.
-- LLVM general: Why does it print the module-pass twice (`ninja pass_example_run`)?
-- LLVM general: Why did `llvm.lifetime.start.p0i8 (arg_size: 2)` appear with -O2 option?
 
 
 <br></br>

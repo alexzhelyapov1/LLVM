@@ -68,8 +68,7 @@ int main() {
 
     simInit();
     ArrayRef<GenericValue> noargs;
-    GenericValue v = ee->runFunction(AppFunc, noargs);
-    // outs() << "[EE] Result: " << v.IntVal << "\n";
+    ee->runFunction(AppFunc, noargs);
     simExit();
     return 0;
 }
