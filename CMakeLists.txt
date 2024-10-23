@@ -28,6 +28,11 @@ find_package(SDL2 REQUIRED CONFIG REQUIRED COMPONENTS SDL2)
 find_package(LLVM REQUIRED CONFIG)
 
 
+add_custom_target(compile_passes)
+add_custom_target(dump_irs)
+add_custom_target(compile_graph_apps)
+
+
 add_subdirectory(simple_graph_app)
 add_subdirectory(llvm_pass)
 add_subdirectory(generate_app)

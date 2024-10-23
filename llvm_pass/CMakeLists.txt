@@ -1,10 +1,18 @@
+add_compile_definitions(
+    STATIC_STAT_CSV_PATH="${CMAKE_CURRENT_SOURCE_DIR}/artefacts/static_stat.csv"
+    RUNTIME_STAT_CSV_PATH="${CMAKE_CURRENT_SOURCE_DIR}/artefacts/runtime_stat.csv"
+)
+
+
 add_library(static_stat_pass SHARED src/StatPass.cpp)
 target_include_directories(static_stat_pass PUBLIC "${LLVM_INCLUDE_DIRS}")
+add_dependencies(compile_passes static_stat_pass)
 
 
 
 add_library(runtime_stat_pass SHARED src/RuntimePass.cpp)
 target_include_directories(runtime_stat_pass PUBLIC "${LLVM_INCLUDE_DIRS}")
+add_dependencies(compile_passes runtime_stat_pass)
 
 
 
@@ -15,10 +23,6 @@ target_compile_options(app_with_static_stat_pass PRIVATE
 -fpass-plugin=$<TARGET_FILE:static_stat_pass>
 -O2
 )
-target_compile_definitions(app_with_static_stat_pass PRIVATE
-    RUNTIME_STAT_CSV_PATH="${CMAKE_CURRENT_SOURCE_DIR}/artefacts/static_stat.csv"
-)
-
 add_dependencies(app_with_static_stat_pass static_stat_pass)
 
 
@@ -42,13 +46,11 @@ add_custom_target(app_with_runtime_stat_pass_ir
 
     DEPENDS runtime_stat_pass
 )
+add_dependencies(dump_irs app_with_runtime_stat_pass_ir)
 
 
 
 add_library(log OBJECT src/log.c)
-target_compile_definitions(log PRIVATE
-    RUNTIME_STAT_CSV_PATH="${CMAKE_CURRENT_SOURCE_DIR}/artefacts/runtime_stat.csv"
-)
 
 
 
@@ -59,6 +61,7 @@ add_executable(graph_app_with_runtime_stat
 )
 add_dependencies(graph_app_with_runtime_stat app_with_runtime_stat_pass graph_without_app log)
 target_link_libraries(graph_app_with_runtime_stat SDL2::SDL2)
+add_dependencies(compile_graph_apps graph_app_with_runtime_stat)
 
 
 add_custom_target(draw_graphs

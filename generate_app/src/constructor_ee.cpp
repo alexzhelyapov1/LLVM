@@ -25,7 +25,7 @@ int main() {
     ArrayRef<Type *> SimPutPixelParamTypes = {Type::getInt32Ty(Ctx),
                                                 Type::getInt32Ty(Ctx),
                                                 Type::getInt32Ty(Ctx)};
-    
+
     auto *SimPutPixelType = FunctionType::get(Type::getVoidTy(Ctx), SimPutPixelParamTypes, false);
     auto SimPutPixelFunc = M->getOrInsertFunction("simPutPixel", SimPutPixelType);
 
@@ -43,16 +43,13 @@ int main() {
     GenerateInitMatrix(M);
     GenerateApp(M);
 
-    // llvm::FunctionType *AppFuncType = llvm::FunctionType::get(Builder.getVoidTy(), {}, false);
-    // auto AppFunc = M->getOrInsertFunction("app", AppFuncType);
-
     auto AppFunc = M->getFunction("app");
     if (AppFunc == nullptr) {
         outs() << "[FATAL_ERROR]: Can't find 'app' function in module!\n";
         return 1;
     }
 
-    M->print(outs(), nullptr);
+    // M->print(outs(), nullptr);
 
     InitializeNativeTarget();
     InitializeNativeTargetAsmPrinter();
@@ -72,7 +69,7 @@ int main() {
     simInit();
     ArrayRef<GenericValue> noargs;
     GenericValue v = ee->runFunction(AppFunc, noargs);
-    outs() << "[EE] Result: " << v.IntVal << "\n";
+    // outs() << "[EE] Result: " << v.IntVal << "\n";
     simExit();
     return 0;
 }
