@@ -1,4 +1,8 @@
 # cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -GNinja ../
+# ninja app_with_runtime_stat_pass
+# cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON --trace ../
+# make VERBOSE=1 app_with_runtime_stat_pass
+# make VERBOSE=1 graph_with_ee
 
 cmake_minimum_required (VERSION 3.16)
 project(SimpleGraphApp)
