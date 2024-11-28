@@ -7,6 +7,7 @@ wsl_setup() {
     sudo apt install llvm llvm-dev clang cmake ninja-build libsdl2-dev -y
     sudo apt install x11-apps -y
     sudo apt install python3-pip -y
+    sudo apt install antlr4 -y
     pip install -r requirements.txt
 
 
