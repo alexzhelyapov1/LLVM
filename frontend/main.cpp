@@ -153,15 +153,15 @@ int main(int argc, const char *argv[]) {
   ViperLangParser parser(&tokens);
 
   // Display the parse tree
-  std::cout /* outs() */ << parser.expr()->toStringTree() << "\n";
+  std::cout /* outs() */ << parser.program()->toStringTree() << "\n";
   return 0;
 
   // Associate a visitor with the Expr context
-  //TreeWalker walker;
+//   TreeWalker walker;
   //TreeDumpWalker walker;
-  //int res = walker.visitExpr(parser.expr()).as<int>();
-  //std::cout /* outs() */ << "Visitor output: " << res << "\n";
-  //return 0;
+//   int res = walker.visitExpr(parser.expr()).as<int>();
+//   std::cout /* outs() */ << "Visitor output: " << res << "\n";
+//   return 0;
 
 //   LLVMContext context;
 //   Module *module = new Module("top", context);
