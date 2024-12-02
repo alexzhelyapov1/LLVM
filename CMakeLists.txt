@@ -5,6 +5,7 @@
 # make VERBOSE=1 graph_with_ee
 
 cmake_minimum_required(VERSION 3.22)
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "Vcpkg toolchain file")
 project(SimpleGraphApp)
 
 
@@ -30,6 +31,7 @@ set(LLVM_PASS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/llvm_pass)
 
 find_package(SDL2 REQUIRED CONFIG REQUIRED COMPONENTS SDL2)
 find_package(LLVM REQUIRED CONFIG)
+find_package(antlr4-runtime CONFIG REQUIRED)
 
 
 add_custom_target(compile_passes)

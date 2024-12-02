@@ -8,3 +8,4 @@ function my_foo(int a[5], int b, int c)
     end
     simFlush();
 end
+
