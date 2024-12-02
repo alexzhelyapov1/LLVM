@@ -28,7 +28,7 @@ target_link_libraries(test_parser parser)
 
 
 add_executable(test_frontend frontend.cpp)
-target_link_libraries(test_frontend parser)
+target_link_libraries(test_frontend parser LLVM)
 
 # # antlr4j -Dlanguage=Cpp ViperLang.g4 -visitor
 # # g++ *.cpp -I /usr/include/antlr4-runtime/ -lantlr4-runtime

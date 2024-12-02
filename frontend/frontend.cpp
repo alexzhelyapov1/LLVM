@@ -4,29 +4,32 @@
 #include "ViperLangParser.h"
 #include "ViperLangVisitor.h"
 #include "antlr4-runtime.h"
-// #include "llvm/IR/IRBuilder.h"
-// #include "llvm/IR/LLVMContext.h"
-// #include "llvm/IR/Module.h"
-// #include "llvm/IR/Verifier.h"
-// #include "llvm/Support/raw_ostream.h"
-// using namespace llvm;
+#include "llvm/IR/IRBuilder.h"
+#include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/Module.h"
+#include "llvm/IR/Verifier.h"
+#include "llvm/Support/raw_ostream.h"
+using namespace llvm;
 
 
 struct Walker : public ViperLangVisitor {
+    IRBuilder<> *builder;
+    Walker(IRBuilder<> *builder) : builder(builder) {}
+
     std::any visitProgram(ViperLangParser::ProgramContext *context) override {
         std::cout << "Number of functions: " << context->children.size() << std::endl;
         return nullptr;
     }
 
-    std::any visitFunction_definition(ViperLangParser::Function_definitionContext *context) override {}
-    std::any visitVariable_declaration(ViperLangParser::Variable_declarationContext *context) override {}
-    std::any visitStatement(ViperLangParser::StatementContext *context) override {}
-    std::any visitAssigment_expression(ViperLangParser::Assigment_expressionContext *context) override {}
-    std::any visitCall_expression(ViperLangParser::Call_expressionContext *context) override {}
-    std::any visitExpression(ViperLangParser::ExpressionContext *context) override {}
-    std::any visitIf_statement(ViperLangParser::If_statementContext *context) override {}
-    std::any visitCondition_expression(ViperLangParser::Condition_expressionContext *context) override {}
-    std::any visitFor_statement(ViperLangParser::For_statementContext *context) override {}
+    std::any visitFunction_definition(ViperLangParser::Function_definitionContext *context) override { return nullptr; }
+    std::any visitVariable_declaration(ViperLangParser::Variable_declarationContext *context) override { return nullptr; }
+    std::any visitStatement(ViperLangParser::StatementContext *context) override { return nullptr; }
+    std::any visitAssigment_expression(ViperLangParser::Assigment_expressionContext *context) override { return nullptr; }
+    std::any visitCall_expression(ViperLangParser::Call_expressionContext *context) override { return nullptr; }
+    std::any visitExpression(ViperLangParser::ExpressionContext *context) override { return nullptr; }
+    std::any visitIf_statement(ViperLangParser::If_statementContext *context) override { return nullptr; }
+    std::any visitCondition_expression(ViperLangParser::Condition_expressionContext *context) override { return nullptr; }
+    std::any visitFor_statement(ViperLangParser::For_statementContext *context) override { return nullptr; }
 };
 
 
@@ -56,7 +59,10 @@ int main(int argc, const char *argv[]) {
 //   return 0;
 
   // Associate a visitor with the Expr context
-  Walker walker;
+    LLVMContext context;
+    Module *module = new Module("top", context);
+    IRBuilder<> builder(context);
+    Walker walker(&builder);
 //   TreeDumpWalker walker;
   walker.visitProgram(parser.program());
 //   std::cout /* outs() */ << "Visitor output: " << res << "\n";
