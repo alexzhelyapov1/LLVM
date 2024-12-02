@@ -8,6 +8,7 @@ wsl_setup() {
     sudo apt install x11-apps -y
     sudo apt install python3-pip -y
     sudo apt install antlr4 -y
+    sudo apt install libantlr4-runtime-dev -y
     pip install -r requirements.txt
 
 

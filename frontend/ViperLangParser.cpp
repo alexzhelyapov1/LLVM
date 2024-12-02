@@ -1,5 +1,5 @@
 
-// Generated from ViperLang.g4 by ANTLR 4.7.2
+// Generated from ViperLang.g4 by ANTLR 4.13.2
 
 
 #include "ViperLangListener.h"
@@ -9,14 +9,151 @@
 
 
 using namespace antlrcpp;
+
 using namespace antlr4;
 
-ViperLangParser::ViperLangParser(TokenStream *input) : Parser(input) {
-  _interpreter = new atn::ParserATNSimulator(this, _atn, _decisionToDFA, _sharedContextCache);
+namespace {
+
+struct ViperLangParserStaticData final {
+  ViperLangParserStaticData(std::vector<std::string> ruleNames,
+                        std::vector<std::string> literalNames,
+                        std::vector<std::string> symbolicNames)
+      : ruleNames(std::move(ruleNames)), literalNames(std::move(literalNames)),
+        symbolicNames(std::move(symbolicNames)),
+        vocabulary(this->literalNames, this->symbolicNames) {}
+
+  ViperLangParserStaticData(const ViperLangParserStaticData&) = delete;
+  ViperLangParserStaticData(ViperLangParserStaticData&&) = delete;
+  ViperLangParserStaticData& operator=(const ViperLangParserStaticData&) = delete;
+  ViperLangParserStaticData& operator=(ViperLangParserStaticData&&) = delete;
+
+  std::vector<antlr4::dfa::DFA> decisionToDFA;
+  antlr4::atn::PredictionContextCache sharedContextCache;
+  const std::vector<std::string> ruleNames;
+  const std::vector<std::string> literalNames;
+  const std::vector<std::string> symbolicNames;
+  const antlr4::dfa::Vocabulary vocabulary;
+  antlr4::atn::SerializedATNView serializedATN;
+  std::unique_ptr<antlr4::atn::ATN> atn;
+};
+
+::antlr4::internal::OnceFlag viperlangParserOnceFlag;
+#if ANTLR4_USE_THREAD_LOCAL_CACHE
+static thread_local
+#endif
+std::unique_ptr<ViperLangParserStaticData> viperlangParserStaticData = nullptr;
+
+void viperlangParserInitialize() {
+#if ANTLR4_USE_THREAD_LOCAL_CACHE
+  if (viperlangParserStaticData != nullptr) {
+    return;
+  }
+#else
+  assert(viperlangParserStaticData == nullptr);
+#endif
+  auto staticData = std::make_unique<ViperLangParserStaticData>(
+    std::vector<std::string>{
+      "program", "func_def", "func_name", "arguments", "argument", "type", 
+      "for_expression", "if_expression", "if_statement", "elif_statement", 
+      "else_statement", "body", "statement", "expression", "var_def", "call_func", 
+      "vars", "cond_expr", "expr", "var_name"
+    },
+    std::vector<std::string>{
+      "", "'function'", "'('", "')'", "'end'", "','", "'int'", "'for'", 
+      "';'", "'if'", "'elif'", "'else'", "'='", "'and'", "'or'", "'<'", 
+      "'>'", "'*'", "'/'", "'+'", "'-'"
+    },
+    std::vector<std::string>{
+      "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
+      "", "", "", "", "INT", "NAME", "BODY", "WS"
+    }
+  );
+  static const int32_t serializedATNSegment[] = {
+  	4,1,24,185,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
+  	7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,
+  	14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,1,0,4,0,42,8,0,11,
+  	0,12,0,43,1,1,1,1,1,1,1,1,3,1,50,8,1,1,1,1,1,1,1,1,1,1,2,1,2,1,3,1,3,
+  	1,3,1,3,1,3,3,3,63,8,3,1,4,1,4,1,4,1,5,1,5,1,6,1,6,1,6,1,6,1,6,1,6,1,
+  	6,1,6,1,6,1,6,1,6,1,7,1,7,5,7,83,8,7,10,7,12,7,86,9,7,1,7,5,7,89,8,7,
+  	10,7,12,7,92,9,7,1,7,1,7,1,8,1,8,1,8,1,8,1,8,1,8,1,9,1,9,1,9,1,9,1,9,
+  	1,9,1,10,1,10,1,10,1,11,4,11,112,8,11,11,11,12,11,113,1,12,1,12,1,12,
+  	1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,3,12,127,8,12,1,13,1,13,1,13,
+  	1,13,1,14,1,14,1,14,1,14,1,14,1,15,1,15,1,15,3,15,141,8,15,1,15,1,15,
+  	1,16,1,16,1,16,1,16,3,16,149,8,16,1,17,1,17,1,17,1,17,1,17,1,17,1,17,
+  	1,17,1,17,1,17,1,17,5,17,162,8,17,10,17,12,17,165,9,17,1,18,1,18,1,18,
+  	3,18,170,8,18,1,18,1,18,1,18,1,18,1,18,1,18,5,18,178,8,18,10,18,12,18,
+  	181,9,18,1,19,1,19,1,19,0,2,34,36,20,0,2,4,6,8,10,12,14,16,18,20,22,24,
+  	26,28,30,32,34,36,38,0,3,1,0,15,16,1,0,17,18,1,0,19,20,182,0,41,1,0,0,
+  	0,2,45,1,0,0,0,4,55,1,0,0,0,6,62,1,0,0,0,8,64,1,0,0,0,10,67,1,0,0,0,12,
+  	69,1,0,0,0,14,80,1,0,0,0,16,95,1,0,0,0,18,101,1,0,0,0,20,107,1,0,0,0,
+  	22,111,1,0,0,0,24,126,1,0,0,0,26,128,1,0,0,0,28,132,1,0,0,0,30,137,1,
+  	0,0,0,32,148,1,0,0,0,34,150,1,0,0,0,36,169,1,0,0,0,38,182,1,0,0,0,40,
+  	42,3,2,1,0,41,40,1,0,0,0,42,43,1,0,0,0,43,41,1,0,0,0,43,44,1,0,0,0,44,
+  	1,1,0,0,0,45,46,5,1,0,0,46,47,3,4,2,0,47,49,5,2,0,0,48,50,3,6,3,0,49,
+  	48,1,0,0,0,49,50,1,0,0,0,50,51,1,0,0,0,51,52,5,3,0,0,52,53,3,22,11,0,
+  	53,54,5,4,0,0,54,3,1,0,0,0,55,56,5,22,0,0,56,5,1,0,0,0,57,63,3,8,4,0,
+  	58,59,3,8,4,0,59,60,5,5,0,0,60,61,3,8,4,0,61,63,1,0,0,0,62,57,1,0,0,0,
+  	62,58,1,0,0,0,63,7,1,0,0,0,64,65,3,10,5,0,65,66,3,38,19,0,66,9,1,0,0,
+  	0,67,68,5,6,0,0,68,11,1,0,0,0,69,70,5,7,0,0,70,71,5,2,0,0,71,72,3,28,
+  	14,0,72,73,5,8,0,0,73,74,3,34,17,0,74,75,5,8,0,0,75,76,3,22,11,0,76,77,
+  	5,3,0,0,77,78,3,22,11,0,78,79,5,4,0,0,79,13,1,0,0,0,80,84,3,16,8,0,81,
+  	83,3,18,9,0,82,81,1,0,0,0,83,86,1,0,0,0,84,82,1,0,0,0,84,85,1,0,0,0,85,
+  	90,1,0,0,0,86,84,1,0,0,0,87,89,3,20,10,0,88,87,1,0,0,0,89,92,1,0,0,0,
+  	90,88,1,0,0,0,90,91,1,0,0,0,91,93,1,0,0,0,92,90,1,0,0,0,93,94,5,4,0,0,
+  	94,15,1,0,0,0,95,96,5,9,0,0,96,97,5,2,0,0,97,98,3,34,17,0,98,99,5,3,0,
+  	0,99,100,3,22,11,0,100,17,1,0,0,0,101,102,5,10,0,0,102,103,5,2,0,0,103,
+  	104,3,34,17,0,104,105,5,3,0,0,105,106,3,22,11,0,106,19,1,0,0,0,107,108,
+  	5,11,0,0,108,109,3,22,11,0,109,21,1,0,0,0,110,112,3,24,12,0,111,110,1,
+  	0,0,0,112,113,1,0,0,0,113,111,1,0,0,0,113,114,1,0,0,0,114,23,1,0,0,0,
+  	115,116,3,28,14,0,116,117,5,8,0,0,117,127,1,0,0,0,118,119,3,30,15,0,119,
+  	120,5,8,0,0,120,127,1,0,0,0,121,127,3,12,6,0,122,127,3,14,7,0,123,124,
+  	3,26,13,0,124,125,5,8,0,0,125,127,1,0,0,0,126,115,1,0,0,0,126,118,1,0,
+  	0,0,126,121,1,0,0,0,126,122,1,0,0,0,126,123,1,0,0,0,127,25,1,0,0,0,128,
+  	129,3,38,19,0,129,130,5,12,0,0,130,131,3,36,18,0,131,27,1,0,0,0,132,133,
+  	3,10,5,0,133,134,3,38,19,0,134,135,5,12,0,0,135,136,3,36,18,0,136,29,
+  	1,0,0,0,137,138,3,4,2,0,138,140,5,2,0,0,139,141,3,32,16,0,140,139,1,0,
+  	0,0,140,141,1,0,0,0,141,142,1,0,0,0,142,143,5,3,0,0,143,31,1,0,0,0,144,
+  	149,5,22,0,0,145,146,5,22,0,0,146,147,5,5,0,0,147,149,5,22,0,0,148,144,
+  	1,0,0,0,148,145,1,0,0,0,149,33,1,0,0,0,150,151,6,17,-1,0,151,152,3,36,
+  	18,0,152,153,7,0,0,0,153,154,3,36,18,0,154,163,1,0,0,0,155,156,10,3,0,
+  	0,156,157,5,13,0,0,157,162,3,34,17,4,158,159,10,2,0,0,159,160,5,14,0,
+  	0,160,162,3,34,17,3,161,155,1,0,0,0,161,158,1,0,0,0,162,165,1,0,0,0,163,
+  	161,1,0,0,0,163,164,1,0,0,0,164,35,1,0,0,0,165,163,1,0,0,0,166,170,6,
+  	18,-1,0,167,170,5,21,0,0,168,170,3,38,19,0,169,166,1,0,0,0,169,167,1,
+  	0,0,0,169,168,1,0,0,0,170,179,1,0,0,0,171,172,10,4,0,0,172,173,7,1,0,
+  	0,173,178,3,36,18,5,174,175,10,3,0,0,175,176,7,2,0,0,176,178,3,36,18,
+  	4,177,171,1,0,0,0,177,174,1,0,0,0,178,181,1,0,0,0,179,177,1,0,0,0,179,
+  	180,1,0,0,0,180,37,1,0,0,0,181,179,1,0,0,0,182,183,5,22,0,0,183,39,1,
+  	0,0,0,14,43,49,62,84,90,113,126,140,148,161,163,169,177,179
+  };
+  staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
+
+  antlr4::atn::ATNDeserializer deserializer;
+  staticData->atn = deserializer.deserialize(staticData->serializedATN);
+
+  const size_t count = staticData->atn->getNumberOfDecisions();
+  staticData->decisionToDFA.reserve(count);
+  for (size_t i = 0; i < count; i++) { 
+    staticData->decisionToDFA.emplace_back(staticData->atn->getDecisionState(i), i);
+  }
+  viperlangParserStaticData = std::move(staticData);
+}
+
+}
+
+ViperLangParser::ViperLangParser(TokenStream *input) : ViperLangParser(input, antlr4::atn::ParserATNSimulatorOptions()) {}
+
+ViperLangParser::ViperLangParser(TokenStream *input, const antlr4::atn::ParserATNSimulatorOptions &options) : Parser(input) {
+  ViperLangParser::initialize();
+  _interpreter = new atn::ParserATNSimulator(this, *viperlangParserStaticData->atn, viperlangParserStaticData->decisionToDFA, viperlangParserStaticData->sharedContextCache, options);
 }
 
 ViperLangParser::~ViperLangParser() {
   delete _interpreter;
+}
+
+const atn::ATN& ViperLangParser::getATN() const {
+  return *viperlangParserStaticData->atn;
 }
 
 std::string ViperLangParser::getGrammarFileName() const {
@@ -24,11 +161,15 @@ std::string ViperLangParser::getGrammarFileName() const {
 }
 
 const std::vector<std::string>& ViperLangParser::getRuleNames() const {
-  return _ruleNames;
+  return viperlangParserStaticData->ruleNames;
 }
 
-dfa::Vocabulary& ViperLangParser::getVocabulary() const {
-  return _vocabulary;
+const dfa::Vocabulary& ViperLangParser::getVocabulary() const {
+  return viperlangParserStaticData->vocabulary;
+}
+
+antlr4::atn::SerializedATNView ViperLangParser::getSerializedATN() const {
+  return viperlangParserStaticData->serializedATN;
 }
 
 
@@ -64,7 +205,7 @@ void ViperLangParser::ProgramContext::exitRule(tree::ParseTreeListener *listener
 }
 
 
-antlrcpp::Any ViperLangParser::ProgramContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::ProgramContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitProgram(this);
   else
@@ -76,7 +217,11 @@ ViperLangParser::ProgramContext* ViperLangParser::program() {
   enterRule(_localctx, 0, ViperLangParser::RuleProgram);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -138,7 +283,7 @@ void ViperLangParser::Func_defContext::exitRule(tree::ParseTreeListener *listene
 }
 
 
-antlrcpp::Any ViperLangParser::Func_defContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::Func_defContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitFunc_def(this);
   else
@@ -150,7 +295,11 @@ ViperLangParser::Func_defContext* ViperLangParser::func_def() {
   enterRule(_localctx, 2, ViperLangParser::RuleFunc_def);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -214,7 +363,7 @@ void ViperLangParser::Func_nameContext::exitRule(tree::ParseTreeListener *listen
 }
 
 
-antlrcpp::Any ViperLangParser::Func_nameContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::Func_nameContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitFunc_name(this);
   else
@@ -225,7 +374,11 @@ ViperLangParser::Func_nameContext* ViperLangParser::func_name() {
   Func_nameContext *_localctx = _tracker.createInstance<Func_nameContext>(_ctx, getState());
   enterRule(_localctx, 4, ViperLangParser::RuleFunc_name);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -275,7 +428,7 @@ void ViperLangParser::ArgumentsContext::exitRule(tree::ParseTreeListener *listen
 }
 
 
-antlrcpp::Any ViperLangParser::ArgumentsContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::ArgumentsContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitArguments(this);
   else
@@ -286,7 +439,11 @@ ViperLangParser::ArgumentsContext* ViperLangParser::arguments() {
   ArgumentsContext *_localctx = _tracker.createInstance<ArgumentsContext>(_ctx, getState());
   enterRule(_localctx, 6, ViperLangParser::RuleArguments);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -311,6 +468,8 @@ ViperLangParser::ArgumentsContext* ViperLangParser::arguments() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -355,7 +514,7 @@ void ViperLangParser::ArgumentContext::exitRule(tree::ParseTreeListener *listene
 }
 
 
-antlrcpp::Any ViperLangParser::ArgumentContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::ArgumentContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitArgument(this);
   else
@@ -366,7 +525,11 @@ ViperLangParser::ArgumentContext* ViperLangParser::argument() {
   ArgumentContext *_localctx = _tracker.createInstance<ArgumentContext>(_ctx, getState());
   enterRule(_localctx, 8, ViperLangParser::RuleArgument);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -410,7 +573,7 @@ void ViperLangParser::TypeContext::exitRule(tree::ParseTreeListener *listener) {
 }
 
 
-antlrcpp::Any ViperLangParser::TypeContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::TypeContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitType(this);
   else
@@ -421,7 +584,11 @@ ViperLangParser::TypeContext* ViperLangParser::type() {
   TypeContext *_localctx = _tracker.createInstance<TypeContext>(_ctx, getState());
   enterRule(_localctx, 10, ViperLangParser::RuleType);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -479,7 +646,7 @@ void ViperLangParser::For_expressionContext::exitRule(tree::ParseTreeListener *l
 }
 
 
-antlrcpp::Any ViperLangParser::For_expressionContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::For_expressionContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitFor_expression(this);
   else
@@ -490,7 +657,11 @@ ViperLangParser::For_expressionContext* ViperLangParser::for_expression() {
   For_expressionContext *_localctx = _tracker.createInstance<For_expressionContext>(_ctx, getState());
   enterRule(_localctx, 12, ViperLangParser::RuleFor_expression);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -570,7 +741,7 @@ void ViperLangParser::If_expressionContext::exitRule(tree::ParseTreeListener *li
 }
 
 
-antlrcpp::Any ViperLangParser::If_expressionContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::If_expressionContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitIf_expression(this);
   else
@@ -582,7 +753,11 @@ ViperLangParser::If_expressionContext* ViperLangParser::if_expression() {
   enterRule(_localctx, 14, ViperLangParser::RuleIf_expression);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -654,7 +829,7 @@ void ViperLangParser::If_statementContext::exitRule(tree::ParseTreeListener *lis
 }
 
 
-antlrcpp::Any ViperLangParser::If_statementContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::If_statementContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitIf_statement(this);
   else
@@ -665,7 +840,11 @@ ViperLangParser::If_statementContext* ViperLangParser::if_statement() {
   If_statementContext *_localctx = _tracker.createInstance<If_statementContext>(_ctx, getState());
   enterRule(_localctx, 16, ViperLangParser::RuleIf_statement);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -723,7 +902,7 @@ void ViperLangParser::Elif_statementContext::exitRule(tree::ParseTreeListener *l
 }
 
 
-antlrcpp::Any ViperLangParser::Elif_statementContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::Elif_statementContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitElif_statement(this);
   else
@@ -734,7 +913,11 @@ ViperLangParser::Elif_statementContext* ViperLangParser::elif_statement() {
   Elif_statementContext *_localctx = _tracker.createInstance<Elif_statementContext>(_ctx, getState());
   enterRule(_localctx, 18, ViperLangParser::RuleElif_statement);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -788,7 +971,7 @@ void ViperLangParser::Else_statementContext::exitRule(tree::ParseTreeListener *l
 }
 
 
-antlrcpp::Any ViperLangParser::Else_statementContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::Else_statementContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitElse_statement(this);
   else
@@ -799,7 +982,11 @@ ViperLangParser::Else_statementContext* ViperLangParser::else_statement() {
   Else_statementContext *_localctx = _tracker.createInstance<Else_statementContext>(_ctx, getState());
   enterRule(_localctx, 20, ViperLangParser::RuleElse_statement);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -851,7 +1038,7 @@ void ViperLangParser::BodyContext::exitRule(tree::ParseTreeListener *listener) {
 }
 
 
-antlrcpp::Any ViperLangParser::BodyContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::BodyContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitBody(this);
   else
@@ -863,7 +1050,11 @@ ViperLangParser::BodyContext* ViperLangParser::body() {
   enterRule(_localctx, 22, ViperLangParser::RuleBody);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -878,10 +1069,7 @@ ViperLangParser::BodyContext* ViperLangParser::body() {
       _errHandler->sync(this);
       _la = _input->LA(1);
     } while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << ViperLangParser::T__5)
-      | (1ULL << ViperLangParser::T__6)
-      | (1ULL << ViperLangParser::T__8)
-      | (1ULL << ViperLangParser::NAME))) != 0));
+      ((1ULL << _la) & 4195008) != 0));
    
   }
   catch (RecognitionException &e) {
@@ -937,7 +1125,7 @@ void ViperLangParser::StatementContext::exitRule(tree::ParseTreeListener *listen
 }
 
 
-antlrcpp::Any ViperLangParser::StatementContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::StatementContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitStatement(this);
   else
@@ -948,7 +1136,11 @@ ViperLangParser::StatementContext* ViperLangParser::statement() {
   StatementContext *_localctx = _tracker.createInstance<StatementContext>(_ctx, getState());
   enterRule(_localctx, 24, ViperLangParser::RuleStatement);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -996,6 +1188,8 @@ ViperLangParser::StatementContext* ViperLangParser::statement() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -1040,7 +1234,7 @@ void ViperLangParser::ExpressionContext::exitRule(tree::ParseTreeListener *liste
 }
 
 
-antlrcpp::Any ViperLangParser::ExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::ExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitExpression(this);
   else
@@ -1051,7 +1245,11 @@ ViperLangParser::ExpressionContext* ViperLangParser::expression() {
   ExpressionContext *_localctx = _tracker.createInstance<ExpressionContext>(_ctx, getState());
   enterRule(_localctx, 26, ViperLangParser::RuleExpression);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1109,7 +1307,7 @@ void ViperLangParser::Var_defContext::exitRule(tree::ParseTreeListener *listener
 }
 
 
-antlrcpp::Any ViperLangParser::Var_defContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::Var_defContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitVar_def(this);
   else
@@ -1120,7 +1318,11 @@ ViperLangParser::Var_defContext* ViperLangParser::var_def() {
   Var_defContext *_localctx = _tracker.createInstance<Var_defContext>(_ctx, getState());
   enterRule(_localctx, 28, ViperLangParser::RuleVar_def);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1176,7 +1378,7 @@ void ViperLangParser::Call_funcContext::exitRule(tree::ParseTreeListener *listen
 }
 
 
-antlrcpp::Any ViperLangParser::Call_funcContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::Call_funcContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitCall_func(this);
   else
@@ -1188,7 +1390,11 @@ ViperLangParser::Call_funcContext* ViperLangParser::call_func() {
   enterRule(_localctx, 30, ViperLangParser::RuleCall_func);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1250,7 +1456,7 @@ void ViperLangParser::VarsContext::exitRule(tree::ParseTreeListener *listener) {
 }
 
 
-antlrcpp::Any ViperLangParser::VarsContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::VarsContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitVars(this);
   else
@@ -1261,7 +1467,11 @@ ViperLangParser::VarsContext* ViperLangParser::vars() {
   VarsContext *_localctx = _tracker.createInstance<VarsContext>(_ctx, getState());
   enterRule(_localctx, 32, ViperLangParser::RuleVars);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1286,6 +1496,8 @@ ViperLangParser::VarsContext* ViperLangParser::vars() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -1338,7 +1550,7 @@ void ViperLangParser::Cond_exprContext::exitRule(tree::ParseTreeListener *listen
 }
 
 
-antlrcpp::Any ViperLangParser::Cond_exprContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::Cond_exprContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitCond_expr(this);
   else
@@ -1361,7 +1573,11 @@ ViperLangParser::Cond_exprContext* ViperLangParser::cond_expr(int precedence) {
 
     size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     unrollRecursionContexts(parentContext);
   });
   try {
@@ -1420,6 +1636,8 @@ ViperLangParser::Cond_exprContext* ViperLangParser::cond_expr(int precedence) {
           break;
         }
 
+        default:
+          break;
         } 
       }
       setState(165);
@@ -1475,7 +1693,7 @@ void ViperLangParser::ExprContext::exitRule(tree::ParseTreeListener *listener) {
 }
 
 
-antlrcpp::Any ViperLangParser::ExprContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::ExprContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitExpr(this);
   else
@@ -1498,7 +1716,11 @@ ViperLangParser::ExprContext* ViperLangParser::expr(int precedence) {
 
     size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     unrollRecursionContexts(parentContext);
   });
   try {
@@ -1523,6 +1745,8 @@ ViperLangParser::ExprContext* ViperLangParser::expr(int precedence) {
       break;
     }
 
+    default:
+      break;
     }
     _ctx->stop = _input->LT(-1);
     setState(179);
@@ -1580,6 +1804,8 @@ ViperLangParser::ExprContext* ViperLangParser::expr(int precedence) {
           break;
         }
 
+        default:
+          break;
         } 
       }
       setState(181);
@@ -1623,7 +1849,7 @@ void ViperLangParser::Var_nameContext::exitRule(tree::ParseTreeListener *listene
 }
 
 
-antlrcpp::Any ViperLangParser::Var_nameContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any ViperLangParser::Var_nameContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<ViperLangVisitor*>(visitor))
     return parserVisitor->visitVar_name(this);
   else
@@ -1634,7 +1860,11 @@ ViperLangParser::Var_nameContext* ViperLangParser::var_name() {
   Var_nameContext *_localctx = _tracker.createInstance<Var_nameContext>(_ctx, getState());
   enterRule(_localctx, 38, ViperLangParser::RuleVar_name);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1654,8 +1884,8 @@ ViperLangParser::Var_nameContext* ViperLangParser::var_name() {
 
 bool ViperLangParser::sempred(RuleContext *context, size_t ruleIndex, size_t predicateIndex) {
   switch (ruleIndex) {
-    case 17: return cond_exprSempred(dynamic_cast<Cond_exprContext *>(context), predicateIndex);
-    case 18: return exprSempred(dynamic_cast<ExprContext *>(context), predicateIndex);
+    case 17: return cond_exprSempred(antlrcpp::downCast<Cond_exprContext *>(context), predicateIndex);
+    case 18: return exprSempred(antlrcpp::downCast<ExprContext *>(context), predicateIndex);
 
   default:
     break;
@@ -1685,179 +1915,10 @@ bool ViperLangParser::exprSempred(ExprContext *_localctx, size_t predicateIndex)
   return true;
 }
 
-// Static vars and initialization.
-std::vector<dfa::DFA> ViperLangParser::_decisionToDFA;
-atn::PredictionContextCache ViperLangParser::_sharedContextCache;
-
-// We own the ATN which in turn owns the ATN states.
-atn::ATN ViperLangParser::_atn;
-std::vector<uint16_t> ViperLangParser::_serializedATN;
-
-std::vector<std::string> ViperLangParser::_ruleNames = {
-  "program", "func_def", "func_name", "arguments", "argument", "type", "for_expression", 
-  "if_expression", "if_statement", "elif_statement", "else_statement", "body", 
-  "statement", "expression", "var_def", "call_func", "vars", "cond_expr", 
-  "expr", "var_name"
-};
-
-std::vector<std::string> ViperLangParser::_literalNames = {
-  "", "'function'", "'('", "')'", "'end'", "','", "'int'", "'for'", "';'", 
-  "'if'", "'elif'", "'else'", "'='", "'and'", "'or'", "'<'", "'>'", "'*'", 
-  "'/'", "'+'", "'-'"
-};
-
-std::vector<std::string> ViperLangParser::_symbolicNames = {
-  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
-  "", "", "", "INT", "NAME", "BODY", "WS"
-};
-
-dfa::Vocabulary ViperLangParser::_vocabulary(_literalNames, _symbolicNames);
-
-std::vector<std::string> ViperLangParser::_tokenNames;
-
-ViperLangParser::Initializer::Initializer() {
-	for (size_t i = 0; i < _symbolicNames.size(); ++i) {
-		std::string name = _vocabulary.getLiteralName(i);
-		if (name.empty()) {
-			name = _vocabulary.getSymbolicName(i);
-		}
-
-		if (name.empty()) {
-			_tokenNames.push_back("<INVALID>");
-		} else {
-      _tokenNames.push_back(name);
-    }
-	}
-
-  _serializedATN = {
-    0x3, 0x608b, 0xa72a, 0x8133, 0xb9ed, 0x417c, 0x3be7, 0x7786, 0x5964, 
-    0x3, 0x1a, 0xbb, 0x4, 0x2, 0x9, 0x2, 0x4, 0x3, 0x9, 0x3, 0x4, 0x4, 0x9, 
-    0x4, 0x4, 0x5, 0x9, 0x5, 0x4, 0x6, 0x9, 0x6, 0x4, 0x7, 0x9, 0x7, 0x4, 
-    0x8, 0x9, 0x8, 0x4, 0x9, 0x9, 0x9, 0x4, 0xa, 0x9, 0xa, 0x4, 0xb, 0x9, 
-    0xb, 0x4, 0xc, 0x9, 0xc, 0x4, 0xd, 0x9, 0xd, 0x4, 0xe, 0x9, 0xe, 0x4, 
-    0xf, 0x9, 0xf, 0x4, 0x10, 0x9, 0x10, 0x4, 0x11, 0x9, 0x11, 0x4, 0x12, 
-    0x9, 0x12, 0x4, 0x13, 0x9, 0x13, 0x4, 0x14, 0x9, 0x14, 0x4, 0x15, 0x9, 
-    0x15, 0x3, 0x2, 0x6, 0x2, 0x2c, 0xa, 0x2, 0xd, 0x2, 0xe, 0x2, 0x2d, 
-    0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x5, 0x3, 0x34, 0xa, 0x3, 0x3, 
-    0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x4, 0x3, 0x4, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x5, 0x5, 0x41, 0xa, 0x5, 0x3, 0x6, 
-    0x3, 0x6, 0x3, 0x6, 0x3, 0x7, 0x3, 0x7, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 
-    0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 
-    0x3, 0x8, 0x3, 0x9, 0x3, 0x9, 0x7, 0x9, 0x55, 0xa, 0x9, 0xc, 0x9, 0xe, 
-    0x9, 0x58, 0xb, 0x9, 0x3, 0x9, 0x7, 0x9, 0x5b, 0xa, 0x9, 0xc, 0x9, 0xe, 
-    0x9, 0x5e, 0xb, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0xa, 0x3, 0xa, 0x3, 0xa, 
-    0x3, 0xa, 0x3, 0xa, 0x3, 0xa, 0x3, 0xb, 0x3, 0xb, 0x3, 0xb, 0x3, 0xb, 
-    0x3, 0xb, 0x3, 0xb, 0x3, 0xc, 0x3, 0xc, 0x3, 0xc, 0x3, 0xd, 0x6, 0xd, 
-    0x72, 0xa, 0xd, 0xd, 0xd, 0xe, 0xd, 0x73, 0x3, 0xe, 0x3, 0xe, 0x3, 0xe, 
-    0x3, 0xe, 0x3, 0xe, 0x3, 0xe, 0x3, 0xe, 0x3, 0xe, 0x3, 0xe, 0x3, 0xe, 
-    0x3, 0xe, 0x5, 0xe, 0x81, 0xa, 0xe, 0x3, 0xf, 0x3, 0xf, 0x3, 0xf, 0x3, 
-    0xf, 0x3, 0x10, 0x3, 0x10, 0x3, 0x10, 0x3, 0x10, 0x3, 0x10, 0x3, 0x11, 
-    0x3, 0x11, 0x3, 0x11, 0x5, 0x11, 0x8f, 0xa, 0x11, 0x3, 0x11, 0x3, 0x11, 
-    0x3, 0x12, 0x3, 0x12, 0x3, 0x12, 0x3, 0x12, 0x5, 0x12, 0x97, 0xa, 0x12, 
-    0x3, 0x13, 0x3, 0x13, 0x3, 0x13, 0x3, 0x13, 0x3, 0x13, 0x3, 0x13, 0x3, 
-    0x13, 0x3, 0x13, 0x3, 0x13, 0x3, 0x13, 0x3, 0x13, 0x7, 0x13, 0xa4, 0xa, 
-    0x13, 0xc, 0x13, 0xe, 0x13, 0xa7, 0xb, 0x13, 0x3, 0x14, 0x3, 0x14, 0x3, 
-    0x14, 0x5, 0x14, 0xac, 0xa, 0x14, 0x3, 0x14, 0x3, 0x14, 0x3, 0x14, 0x3, 
-    0x14, 0x3, 0x14, 0x3, 0x14, 0x7, 0x14, 0xb4, 0xa, 0x14, 0xc, 0x14, 0xe, 
-    0x14, 0xb7, 0xb, 0x14, 0x3, 0x15, 0x3, 0x15, 0x3, 0x15, 0x2, 0x4, 0x24, 
-    0x26, 0x16, 0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 0xe, 0x10, 0x12, 0x14, 0x16, 
-    0x18, 0x1a, 0x1c, 0x1e, 0x20, 0x22, 0x24, 0x26, 0x28, 0x2, 0x5, 0x3, 
-    0x2, 0x11, 0x12, 0x3, 0x2, 0x13, 0x14, 0x3, 0x2, 0x15, 0x16, 0x2, 0xb8, 
-    0x2, 0x2b, 0x3, 0x2, 0x2, 0x2, 0x4, 0x2f, 0x3, 0x2, 0x2, 0x2, 0x6, 0x39, 
-    0x3, 0x2, 0x2, 0x2, 0x8, 0x40, 0x3, 0x2, 0x2, 0x2, 0xa, 0x42, 0x3, 0x2, 
-    0x2, 0x2, 0xc, 0x45, 0x3, 0x2, 0x2, 0x2, 0xe, 0x47, 0x3, 0x2, 0x2, 0x2, 
-    0x10, 0x52, 0x3, 0x2, 0x2, 0x2, 0x12, 0x61, 0x3, 0x2, 0x2, 0x2, 0x14, 
-    0x67, 0x3, 0x2, 0x2, 0x2, 0x16, 0x6d, 0x3, 0x2, 0x2, 0x2, 0x18, 0x71, 
-    0x3, 0x2, 0x2, 0x2, 0x1a, 0x80, 0x3, 0x2, 0x2, 0x2, 0x1c, 0x82, 0x3, 
-    0x2, 0x2, 0x2, 0x1e, 0x86, 0x3, 0x2, 0x2, 0x2, 0x20, 0x8b, 0x3, 0x2, 
-    0x2, 0x2, 0x22, 0x96, 0x3, 0x2, 0x2, 0x2, 0x24, 0x98, 0x3, 0x2, 0x2, 
-    0x2, 0x26, 0xab, 0x3, 0x2, 0x2, 0x2, 0x28, 0xb8, 0x3, 0x2, 0x2, 0x2, 
-    0x2a, 0x2c, 0x5, 0x4, 0x3, 0x2, 0x2b, 0x2a, 0x3, 0x2, 0x2, 0x2, 0x2c, 
-    0x2d, 0x3, 0x2, 0x2, 0x2, 0x2d, 0x2b, 0x3, 0x2, 0x2, 0x2, 0x2d, 0x2e, 
-    0x3, 0x2, 0x2, 0x2, 0x2e, 0x3, 0x3, 0x2, 0x2, 0x2, 0x2f, 0x30, 0x7, 
-    0x3, 0x2, 0x2, 0x30, 0x31, 0x5, 0x6, 0x4, 0x2, 0x31, 0x33, 0x7, 0x4, 
-    0x2, 0x2, 0x32, 0x34, 0x5, 0x8, 0x5, 0x2, 0x33, 0x32, 0x3, 0x2, 0x2, 
-    0x2, 0x33, 0x34, 0x3, 0x2, 0x2, 0x2, 0x34, 0x35, 0x3, 0x2, 0x2, 0x2, 
-    0x35, 0x36, 0x7, 0x5, 0x2, 0x2, 0x36, 0x37, 0x5, 0x18, 0xd, 0x2, 0x37, 
-    0x38, 0x7, 0x6, 0x2, 0x2, 0x38, 0x5, 0x3, 0x2, 0x2, 0x2, 0x39, 0x3a, 
-    0x7, 0x18, 0x2, 0x2, 0x3a, 0x7, 0x3, 0x2, 0x2, 0x2, 0x3b, 0x41, 0x5, 
-    0xa, 0x6, 0x2, 0x3c, 0x3d, 0x5, 0xa, 0x6, 0x2, 0x3d, 0x3e, 0x7, 0x7, 
-    0x2, 0x2, 0x3e, 0x3f, 0x5, 0xa, 0x6, 0x2, 0x3f, 0x41, 0x3, 0x2, 0x2, 
-    0x2, 0x40, 0x3b, 0x3, 0x2, 0x2, 0x2, 0x40, 0x3c, 0x3, 0x2, 0x2, 0x2, 
-    0x41, 0x9, 0x3, 0x2, 0x2, 0x2, 0x42, 0x43, 0x5, 0xc, 0x7, 0x2, 0x43, 
-    0x44, 0x5, 0x28, 0x15, 0x2, 0x44, 0xb, 0x3, 0x2, 0x2, 0x2, 0x45, 0x46, 
-    0x7, 0x8, 0x2, 0x2, 0x46, 0xd, 0x3, 0x2, 0x2, 0x2, 0x47, 0x48, 0x7, 
-    0x9, 0x2, 0x2, 0x48, 0x49, 0x7, 0x4, 0x2, 0x2, 0x49, 0x4a, 0x5, 0x1e, 
-    0x10, 0x2, 0x4a, 0x4b, 0x7, 0xa, 0x2, 0x2, 0x4b, 0x4c, 0x5, 0x24, 0x13, 
-    0x2, 0x4c, 0x4d, 0x7, 0xa, 0x2, 0x2, 0x4d, 0x4e, 0x5, 0x18, 0xd, 0x2, 
-    0x4e, 0x4f, 0x7, 0x5, 0x2, 0x2, 0x4f, 0x50, 0x5, 0x18, 0xd, 0x2, 0x50, 
-    0x51, 0x7, 0x6, 0x2, 0x2, 0x51, 0xf, 0x3, 0x2, 0x2, 0x2, 0x52, 0x56, 
-    0x5, 0x12, 0xa, 0x2, 0x53, 0x55, 0x5, 0x14, 0xb, 0x2, 0x54, 0x53, 0x3, 
-    0x2, 0x2, 0x2, 0x55, 0x58, 0x3, 0x2, 0x2, 0x2, 0x56, 0x54, 0x3, 0x2, 
-    0x2, 0x2, 0x56, 0x57, 0x3, 0x2, 0x2, 0x2, 0x57, 0x5c, 0x3, 0x2, 0x2, 
-    0x2, 0x58, 0x56, 0x3, 0x2, 0x2, 0x2, 0x59, 0x5b, 0x5, 0x16, 0xc, 0x2, 
-    0x5a, 0x59, 0x3, 0x2, 0x2, 0x2, 0x5b, 0x5e, 0x3, 0x2, 0x2, 0x2, 0x5c, 
-    0x5a, 0x3, 0x2, 0x2, 0x2, 0x5c, 0x5d, 0x3, 0x2, 0x2, 0x2, 0x5d, 0x5f, 
-    0x3, 0x2, 0x2, 0x2, 0x5e, 0x5c, 0x3, 0x2, 0x2, 0x2, 0x5f, 0x60, 0x7, 
-    0x6, 0x2, 0x2, 0x60, 0x11, 0x3, 0x2, 0x2, 0x2, 0x61, 0x62, 0x7, 0xb, 
-    0x2, 0x2, 0x62, 0x63, 0x7, 0x4, 0x2, 0x2, 0x63, 0x64, 0x5, 0x24, 0x13, 
-    0x2, 0x64, 0x65, 0x7, 0x5, 0x2, 0x2, 0x65, 0x66, 0x5, 0x18, 0xd, 0x2, 
-    0x66, 0x13, 0x3, 0x2, 0x2, 0x2, 0x67, 0x68, 0x7, 0xc, 0x2, 0x2, 0x68, 
-    0x69, 0x7, 0x4, 0x2, 0x2, 0x69, 0x6a, 0x5, 0x24, 0x13, 0x2, 0x6a, 0x6b, 
-    0x7, 0x5, 0x2, 0x2, 0x6b, 0x6c, 0x5, 0x18, 0xd, 0x2, 0x6c, 0x15, 0x3, 
-    0x2, 0x2, 0x2, 0x6d, 0x6e, 0x7, 0xd, 0x2, 0x2, 0x6e, 0x6f, 0x5, 0x18, 
-    0xd, 0x2, 0x6f, 0x17, 0x3, 0x2, 0x2, 0x2, 0x70, 0x72, 0x5, 0x1a, 0xe, 
-    0x2, 0x71, 0x70, 0x3, 0x2, 0x2, 0x2, 0x72, 0x73, 0x3, 0x2, 0x2, 0x2, 
-    0x73, 0x71, 0x3, 0x2, 0x2, 0x2, 0x73, 0x74, 0x3, 0x2, 0x2, 0x2, 0x74, 
-    0x19, 0x3, 0x2, 0x2, 0x2, 0x75, 0x76, 0x5, 0x1e, 0x10, 0x2, 0x76, 0x77, 
-    0x7, 0xa, 0x2, 0x2, 0x77, 0x81, 0x3, 0x2, 0x2, 0x2, 0x78, 0x79, 0x5, 
-    0x20, 0x11, 0x2, 0x79, 0x7a, 0x7, 0xa, 0x2, 0x2, 0x7a, 0x81, 0x3, 0x2, 
-    0x2, 0x2, 0x7b, 0x81, 0x5, 0xe, 0x8, 0x2, 0x7c, 0x81, 0x5, 0x10, 0x9, 
-    0x2, 0x7d, 0x7e, 0x5, 0x1c, 0xf, 0x2, 0x7e, 0x7f, 0x7, 0xa, 0x2, 0x2, 
-    0x7f, 0x81, 0x3, 0x2, 0x2, 0x2, 0x80, 0x75, 0x3, 0x2, 0x2, 0x2, 0x80, 
-    0x78, 0x3, 0x2, 0x2, 0x2, 0x80, 0x7b, 0x3, 0x2, 0x2, 0x2, 0x80, 0x7c, 
-    0x3, 0x2, 0x2, 0x2, 0x80, 0x7d, 0x3, 0x2, 0x2, 0x2, 0x81, 0x1b, 0x3, 
-    0x2, 0x2, 0x2, 0x82, 0x83, 0x5, 0x28, 0x15, 0x2, 0x83, 0x84, 0x7, 0xe, 
-    0x2, 0x2, 0x84, 0x85, 0x5, 0x26, 0x14, 0x2, 0x85, 0x1d, 0x3, 0x2, 0x2, 
-    0x2, 0x86, 0x87, 0x5, 0xc, 0x7, 0x2, 0x87, 0x88, 0x5, 0x28, 0x15, 0x2, 
-    0x88, 0x89, 0x7, 0xe, 0x2, 0x2, 0x89, 0x8a, 0x5, 0x26, 0x14, 0x2, 0x8a, 
-    0x1f, 0x3, 0x2, 0x2, 0x2, 0x8b, 0x8c, 0x5, 0x6, 0x4, 0x2, 0x8c, 0x8e, 
-    0x7, 0x4, 0x2, 0x2, 0x8d, 0x8f, 0x5, 0x22, 0x12, 0x2, 0x8e, 0x8d, 0x3, 
-    0x2, 0x2, 0x2, 0x8e, 0x8f, 0x3, 0x2, 0x2, 0x2, 0x8f, 0x90, 0x3, 0x2, 
-    0x2, 0x2, 0x90, 0x91, 0x7, 0x5, 0x2, 0x2, 0x91, 0x21, 0x3, 0x2, 0x2, 
-    0x2, 0x92, 0x97, 0x7, 0x18, 0x2, 0x2, 0x93, 0x94, 0x7, 0x18, 0x2, 0x2, 
-    0x94, 0x95, 0x7, 0x7, 0x2, 0x2, 0x95, 0x97, 0x7, 0x18, 0x2, 0x2, 0x96, 
-    0x92, 0x3, 0x2, 0x2, 0x2, 0x96, 0x93, 0x3, 0x2, 0x2, 0x2, 0x97, 0x23, 
-    0x3, 0x2, 0x2, 0x2, 0x98, 0x99, 0x8, 0x13, 0x1, 0x2, 0x99, 0x9a, 0x5, 
-    0x26, 0x14, 0x2, 0x9a, 0x9b, 0x9, 0x2, 0x2, 0x2, 0x9b, 0x9c, 0x5, 0x26, 
-    0x14, 0x2, 0x9c, 0xa5, 0x3, 0x2, 0x2, 0x2, 0x9d, 0x9e, 0xc, 0x5, 0x2, 
-    0x2, 0x9e, 0x9f, 0x7, 0xf, 0x2, 0x2, 0x9f, 0xa4, 0x5, 0x24, 0x13, 0x6, 
-    0xa0, 0xa1, 0xc, 0x4, 0x2, 0x2, 0xa1, 0xa2, 0x7, 0x10, 0x2, 0x2, 0xa2, 
-    0xa4, 0x5, 0x24, 0x13, 0x5, 0xa3, 0x9d, 0x3, 0x2, 0x2, 0x2, 0xa3, 0xa0, 
-    0x3, 0x2, 0x2, 0x2, 0xa4, 0xa7, 0x3, 0x2, 0x2, 0x2, 0xa5, 0xa3, 0x3, 
-    0x2, 0x2, 0x2, 0xa5, 0xa6, 0x3, 0x2, 0x2, 0x2, 0xa6, 0x25, 0x3, 0x2, 
-    0x2, 0x2, 0xa7, 0xa5, 0x3, 0x2, 0x2, 0x2, 0xa8, 0xac, 0x8, 0x14, 0x1, 
-    0x2, 0xa9, 0xac, 0x7, 0x17, 0x2, 0x2, 0xaa, 0xac, 0x5, 0x28, 0x15, 0x2, 
-    0xab, 0xa8, 0x3, 0x2, 0x2, 0x2, 0xab, 0xa9, 0x3, 0x2, 0x2, 0x2, 0xab, 
-    0xaa, 0x3, 0x2, 0x2, 0x2, 0xac, 0xb5, 0x3, 0x2, 0x2, 0x2, 0xad, 0xae, 
-    0xc, 0x6, 0x2, 0x2, 0xae, 0xaf, 0x9, 0x3, 0x2, 0x2, 0xaf, 0xb4, 0x5, 
-    0x26, 0x14, 0x7, 0xb0, 0xb1, 0xc, 0x5, 0x2, 0x2, 0xb1, 0xb2, 0x9, 0x4, 
-    0x2, 0x2, 0xb2, 0xb4, 0x5, 0x26, 0x14, 0x6, 0xb3, 0xad, 0x3, 0x2, 0x2, 
-    0x2, 0xb3, 0xb0, 0x3, 0x2, 0x2, 0x2, 0xb4, 0xb7, 0x3, 0x2, 0x2, 0x2, 
-    0xb5, 0xb3, 0x3, 0x2, 0x2, 0x2, 0xb5, 0xb6, 0x3, 0x2, 0x2, 0x2, 0xb6, 
-    0x27, 0x3, 0x2, 0x2, 0x2, 0xb7, 0xb5, 0x3, 0x2, 0x2, 0x2, 0xb8, 0xb9, 
-    0x7, 0x18, 0x2, 0x2, 0xb9, 0x29, 0x3, 0x2, 0x2, 0x2, 0x10, 0x2d, 0x33, 
-    0x40, 0x56, 0x5c, 0x73, 0x80, 0x8e, 0x96, 0xa3, 0xa5, 0xab, 0xb3, 0xb5, 
-  };
-
-  atn::ATNDeserializer deserializer;
-  _atn = deserializer.deserialize(_serializedATN);
-
-  size_t count = _atn.getNumberOfDecisions();
-  _decisionToDFA.reserve(count);
-  for (size_t i = 0; i < count; i++) { 
-    _decisionToDFA.emplace_back(_atn.getDecisionState(i), i);
-  }
+void ViperLangParser::initialize() {
+#if ANTLR4_USE_THREAD_LOCAL_CACHE
+  viperlangParserInitialize();
+#else
+  ::antlr4::internal::call_once(viperlangParserOnceFlag, viperlangParserInitialize);
+#endif
 }
-
-ViperLangParser::Initializer ViperLangParser::_init;
