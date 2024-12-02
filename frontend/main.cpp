@@ -97,39 +97,39 @@
 //   }
 // };
 
-struct TreeWalker : public ViperLangVisitor {
-  antlrcpp::Any visitExpr(ViperLangParser::ExprContext *ctx) override {
-    // INT
-    if (ctx->INT()) {
-      return std::stoi(ctx->INT()->getText());
-    }
-    // '-' expr
-    if (ctx->children.size() == 2) {
-      return -visitExpr(ctx->expr()[0]).as<int>();
-    }
-    // '{' expr '}'
-    if (ctx->children[0]->getText().at(0) == '{') {
-      return visit(ctx->children[1]);
-    }
-    // expr ( '*' | '/') expr
-    // expr ( '+' | '-') expr
-    int lhs = visit(ctx->children[0]).as<int>();
-    int rhs = visit(ctx->children[2]).as<int>();
-    switch (ctx->children[1]->getText().at(0)) {
-    case '*':
-      return lhs * rhs;
-    case '/':
-      return lhs / rhs;
-    case '+':
-      return lhs + rhs;
-    case '-':
-      return lhs - rhs;
-    default:
-      break;
-    }
-    return nullptr;
-  }
-};
+// struct TreeWalker : public ViperLangVisitor {
+//   antlrcpp::Any visitExpr(ViperLangParser::ExprContext *ctx) override {
+//     // INT
+//     if (ctx->INT()) {
+//       return std::stoi(ctx->INT()->getText());
+//     }
+//     // '-' expr
+//     if (ctx->children.size() == 2) {
+//       return -visitExpr(ctx->expr()[0]).as<int>();
+//     }
+//     // '{' expr '}'
+//     if (ctx->children[0]->getText().at(0) == '{') {
+//       return visit(ctx->children[1]);
+//     }
+//     // expr ( '*' | '/') expr
+//     // expr ( '+' | '-') expr
+//     int lhs = visit(ctx->children[0]).as<int>();
+//     int rhs = visit(ctx->children[2]).as<int>();
+//     switch (ctx->children[1]->getText().at(0)) {
+//     case '*':
+//       return lhs * rhs;
+//     case '/':
+//       return lhs / rhs;
+//     case '+':
+//       return lhs + rhs;
+//     case '-':
+//       return lhs - rhs;
+//     default:
+//       break;
+//     }
+//     return nullptr;
+//   }
+// };
 
 int main(int argc, const char *argv[]) {
   if (argc != 2) {

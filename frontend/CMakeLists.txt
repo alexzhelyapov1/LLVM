@@ -1,29 +1,35 @@
-# cmake_minimum_required(VERSION 3.22)
-# set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "Vcpkg toolchain file")
+set(PARSER_GEN_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
+make_directory(${PARSER_GEN_DIR})
 
-# project(Frontend VERSION 0.1.0)
-# find_package(antlr4-runtime CONFIG REQUIRED)
+set(PARSER_SOURCES
+    ${PARSER_GEN_DIR}/ViperLangBaseListener.cpp
+    ${PARSER_GEN_DIR}/ViperLangBaseVisitor.cpp
+    ${PARSER_GEN_DIR}/ViperLangLexer.cpp
+    ${PARSER_GEN_DIR}/ViperLangListener.cpp
+    ${PARSER_GEN_DIR}/ViperLangParser.cpp
+    ${PARSER_GEN_DIR}/ViperLangVisitor.cpp
+)
 
-# set(PARSER_SOURCES
-#     ${CMAKE_CURRENT_SOURCE_DIR}/ViperLang/ViperLangBaseListener.cpp
-#     ${CMAKE_CURRENT_SOURCE_DIR}/ViperLang/ViperLangBaseVisitor.cpp
-#     ${CMAKE_CURRENT_SOURCE_DIR}/ViperLang/ViperLangLexer.cpp
-#     ${CMAKE_CURRENT_SOURCE_DIR}/ViperLang/ViperLangListener.cpp
-#     ${CMAKE_CURRENT_SOURCE_DIR}/ViperLang/ViperLangParser.cpp
-#     ${CMAKE_CURRENT_SOURCE_DIR}/ViperLang/ViperLangVisitor.cpp
-# )
+add_custom_command(
+    OUTPUT ${PARSER_SOURCES}
+    COMMAND antlr4 -Dlanguage=Cpp ${CMAKE_CURRENT_SOURCE_DIR}/ViperLang.g4 -visitor -o ${PARSER_GEN_DIR}
+    WORKING_DIRECTORY ${PARSER_GEN_DIR}
+)
 
-# # antlr4 -Dlanguage=Cpp ViperLang.g4 -visitor
+add_custom_target(gen_parser_sources DEPENDS ${PARSER_SOURCES})
 
-# add_custom_command(
-#     OUTPUT ${PARSER_SOURCES}
+add_library(parser ${PARSER_SOURCES})
+target_include_directories(parser PUBLIC ${PARSER_GEN_DIR})
+target_link_libraries(parser antlr4_static)
 
-# )
 
-# add_library(parser ${PARSER_SOURCES})
-# target_include_directories(parser PRIVATE "ViperLang")
-# target_link_libraries(parser antlr4_static)
+add_executable(test_parser main.cpp)
+target_link_libraries(test_parser parser)
 
-# antlr4j -Dlanguage=Cpp ViperLang.g4 -visitor
-# g++ *.cpp -I /usr/include/antlr4-runtime/ -lantlr4-runtime
-# ./a.out expr.txt
+
+add_executable(test_frontend frontend.cpp)
+target_link_libraries(test_frontend parser)
+
+# # antlr4j -Dlanguage=Cpp ViperLang.g4 -visitor
+# # g++ *.cpp -I /usr/include/antlr4-runtime/ -lantlr4-runtime
+# # ./a.out expr.txt
