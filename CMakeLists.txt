@@ -4,7 +4,7 @@
 # make VERBOSE=1 app_with_runtime_stat_pass
 # make VERBOSE=1 graph_with_ee
 
-cmake_minimum_required (VERSION 3.16)
+cmake_minimum_required(VERSION 3.22)
 project(SimpleGraphApp)
 
 
@@ -40,6 +40,7 @@ add_custom_target(compile_graph_apps)
 add_subdirectory(simple_graph_app)
 add_subdirectory(llvm_pass)
 add_subdirectory(generate_app)
+add_subdirectory(frontend)
 
 
 add_custom_target(clang-force-format
