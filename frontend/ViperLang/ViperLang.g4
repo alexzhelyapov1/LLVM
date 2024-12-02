@@ -7,7 +7,9 @@ function_definition:
     'function' NAME '(' variable_declaration? (',' variable_declaration)* ')' statement* 'end';
 
 variable_declaration:
-    'int' NAME;
+    ('int' | 'uint') NAME
+    | ('int' | 'uint') NAME '[' INT ']'
+    | ('int' | 'uint') '*' NAME;
 
 statement:
     assigment_expression ';'
@@ -16,7 +18,8 @@ statement:
     | for_statement;
 
 assigment_expression:
-    NAME '=' expression;
+    NAME '=' expression
+    | NAME '[' expression ']' '=' expression;
 
 call_expression:
     NAME '(' expression? (',' expression)* ')';
@@ -43,3 +46,5 @@ NAME: [a-zA-Z_]+;
 INT: [0-9]+;
 STATEMENT: [a-zA-Z]+;
 WS: [ \t\r\n]+ -> skip;
+
+// antlr4-parse ViperLang.g4 program -gui < test.v
