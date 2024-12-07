@@ -8,7 +8,7 @@ set(SOURCES_WITHOUT_APP
 
 
 add_library(graph_without_app OBJECT ${SOURCES_WITHOUT_APP})
-target_link_libraries(graph_without_app SDL2::SDL2)
+target_link_libraries(graph_without_app SDL2)
 
 
 add_library(app OBJECT src/app.c)
@@ -16,7 +16,7 @@ add_library(app OBJECT src/app.c)
 
 
 add_executable(simple_graph_app $<TARGET_OBJECTS:graph_without_app> $<TARGET_OBJECTS:app>)
-target_link_libraries(simple_graph_app SDL2::SDL2)
+target_link_libraries(simple_graph_app SDL2)
 add_dependencies(simple_graph_app graph_without_app app)
 add_dependencies(compile_graph_apps simple_graph_app)
 

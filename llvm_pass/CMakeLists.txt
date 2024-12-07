@@ -60,7 +60,7 @@ add_executable(graph_app_with_runtime_stat
     $<TARGET_OBJECTS:log>
 )
 add_dependencies(graph_app_with_runtime_stat app_with_runtime_stat_pass graph_without_app log)
-target_link_libraries(graph_app_with_runtime_stat SDL2::SDL2)
+target_link_libraries(graph_app_with_runtime_stat SDL2)
 add_dependencies(compile_graph_apps graph_app_with_runtime_stat)
 
 

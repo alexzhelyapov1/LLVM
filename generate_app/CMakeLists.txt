@@ -36,7 +36,7 @@ add_dependencies(dump_irs empty_ir)
 
 
 add_executable(graph_with_generated_app $<TARGET_OBJECTS:graph_without_app> $<TARGET_OBJECTS:generate_app>)
-target_link_libraries(graph_with_generated_app SDL2::SDL2)
+target_link_libraries(graph_with_generated_app SDL2)
 add_dependencies(graph_with_generated_app graph_without_app generate_app)
 add_dependencies(compile_graph_apps graph_with_generated_app)
 
@@ -50,7 +50,7 @@ target_include_directories(graph_with_ee PRIVATE
     "${LLVM_INCLUDE_DIRS}"
     "include"
 )
-target_link_libraries(graph_with_ee SDL2::SDL2 LLVM)
+target_link_libraries(graph_with_ee SDL2 LLVM)
 # add_dependencies(compile_graph_apps graph_with_ee)
 
 
