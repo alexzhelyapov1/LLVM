@@ -14,6 +14,23 @@ wsl_setup() {
 }
 
 
+clear_ubuntu_python_install() {
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt update
+    sudo apt install python3.13
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
+    # sudo apt install python3-pip -y
+}
+
+
+ubuntu_setup() {
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt install llvm llvm-dev clang cmake ninja-build libsdl2-dev -y
+    pip install -r requirements.txt
+}
+
+
 mac_setup() {
     echo "WARNING! This feature does not testes enough!"
     brew install SDL2
@@ -33,6 +50,7 @@ cmake_config() {
 print_help() {
     echo -e "Option:Descripton\
         \n : \n--wsl-setup:Install all requirements for WSL.\
+        \n : \n--ubuntu-setup:Install all requirements for Ubuntu.\
         \n : \n--mac-setup:Install all requirements for Mac OS.\
         \n : \n--cmake:Configure build and default cmake command." |
     column -t -s ":"
@@ -45,6 +63,8 @@ print_help() {
 while (( $# > 0)); do
     if [[ "$1" == "--wsl-setup" ]]; then
         wsl_setup
+    elif [[ "$1" == "--ubuntu-setup" ]]; then
+        ubuntu_setup
     elif [[ "$1" == "--mac-setup" ]]; then
         mac_setup
     elif [[ "$1" == "--cmake" ]]; then
