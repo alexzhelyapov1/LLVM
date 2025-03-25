@@ -13,10 +13,27 @@ using namespace llvm;
 
 
 struct Walker : public ViperLangVisitor {
-    IRBuilder<> *builder;
-    Walker(IRBuilder<> *builder) : builder(builder) {}
+    LLVMContext Ctx;
+    Module *M;
+    IRBuilder<> Builder;
+    Walker() :
+        Ctx(),
+        Builder(Ctx)
+    {
+        M = new Module("app_ee_generated.c", Ctx);
+    }
 
     std::any visitProgram(ViperLangParser::ProgramContext *context) override {
+        for (auto *parser_func : context->children) {
+            std::string function_name = parser_func->children[1]->getText();
+
+            // TODO: fix arguments types
+            // llvm::FunctionType *FuncType = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
+            // llvm::Function *Func = llvm::Function::Create(FuncType, llvm::Function::ExternalLinkage, function_name, M);
+            std::cout << "Func name: " << parser_func->NAME() << std::endl;
+        }
+        // llvm::FunctionType *FuncType = llvm::FunctionType::get(Builder.getVoidTy(), {Builder.getInt32Ty()->getPointerTo()}, false);
+        // llvm::Function *Func = llvm::Function::Create(FuncType, llvm::Function::ExternalLinkage, "updateMatrix", M);
         std::cout << "Number of functions: " << context->children.size() << std::endl;
         return nullptr;
     }
@@ -59,12 +76,9 @@ int main(int argc, const char *argv[]) {
 //   return 0;
 
   // Associate a visitor with the Expr context
-    LLVMContext context;
-    Module *module = new Module("top", context);
-    IRBuilder<> builder(context);
-    Walker walker(&builder);
+    Walker walker;
 //   TreeDumpWalker walker;
-  walker.visitProgram(parser.program());
+    walker.visitProgram(parser.program());
 //   std::cout /* outs() */ << "Visitor output: " << res << "\n";
   return 0;
 
