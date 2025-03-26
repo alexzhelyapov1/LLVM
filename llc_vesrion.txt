@@ -1,0 +1,22 @@
+[0;33mLLVMInitializeLexArchTargetInfo
+		/home/alex/mipt/llvm/LLVM/llvm-project/llvm/lib/Target/LexArch/TargetInfo/LexArchTargetInfo.cpp:14
+[0;37m[0;33mgetTheLexArchTarget
+		/home/alex/mipt/llvm/LLVM/llvm-project/llvm/lib/Target/LexArch/TargetInfo/LexArchTargetInfo.cpp:8
+[0;37m[0;36mLLVMInitializeLexArchTarget
+		/home/alex/mipt/llvm/LLVM/llvm-project/llvm/lib/Target/LexArch/LexArchTargetMachine.cpp:13
+[0;37m[0;33mgetTheLexArchTarget
+		/home/alex/mipt/llvm/LLVM/llvm-project/llvm/lib/Target/LexArch/TargetInfo/LexArchTargetInfo.cpp:8
+[0;37m[0;35mLLVMInitializeLexArchTargetMC
+		/home/alex/mipt/llvm/LLVM/llvm-project/llvm/lib/Target/LexArch/MCTargetDesc/LexArchMCTargetDesc.cpp:66
+[0;37m[0;33mgetTheLexArchTarget
+		/home/alex/mipt/llvm/LLVM/llvm-project/llvm/lib/Target/LexArch/TargetInfo/LexArchTargetInfo.cpp:8
+[0;37m[0;33mgetTheLexArchTarget
+		/home/alex/mipt/llvm/LLVM/llvm-project/llvm/lib/Target/LexArch/TargetInfo/LexArchTargetInfo.cpp:8
+[0;37mLLVM (http://llvm.org/):
+  LLVM version 20.1.2
+  Optimized build with assertions.
+  Default target: 
+  Host CPU: skylake
+
+  Registered Targets:
+    lexArch - lexArch - new super arch

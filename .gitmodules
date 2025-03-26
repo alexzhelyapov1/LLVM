@@ -1,0 +1,4 @@
+[submodule "llvm-project"]
+	path = llvm-project
+	url = git@github.com:alexzhelyapov1/llvm-project.git
+	branch = lex-arch
